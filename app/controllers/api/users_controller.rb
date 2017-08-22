@@ -1,5 +1,7 @@
 class Api::UsersController < ApplicationController
-
+  def show
+    render json: show
+  end
 
   def create
     @user = User.new(user_params)
