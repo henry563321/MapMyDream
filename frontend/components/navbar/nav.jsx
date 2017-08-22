@@ -18,7 +18,6 @@ class NavList extends React.Component {
   }
 
   handleClick() {
-    debugger;
     this.props.logout();
   }
 
