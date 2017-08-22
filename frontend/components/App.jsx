@@ -6,7 +6,7 @@ import {Route} from 'react-router-dom';
 const App = () => (
   <div>
     <header>
-      <h2>MapMyDream</h2>
+      <h2>Map My Dream</h2>
       <NavContainer />
     </header>
     <Route path='/login' component={SessionFormContainer}/>
