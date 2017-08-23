@@ -10,10 +10,7 @@ routes
 
 id integer not null, primary key
 user_id integer not null, foreign key
-start_lat float not null
-start_lng float not null
-end_lat float not null
-end_lng float not null
+route string not null
 start_time Datetime not null
 end_time Datetime null
 

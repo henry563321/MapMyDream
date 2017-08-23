@@ -2,10 +2,7 @@
   entities {
     routes {
       user_id,
-      start_lat,
-      start_lng,
-      end_lat,
-      end_lng,
+      route,
       start_time,
       end_time
     }
