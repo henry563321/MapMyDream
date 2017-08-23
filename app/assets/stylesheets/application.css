@@ -64,7 +64,7 @@ body {
 
 .signupform {
   display: flex;
-  width: 40vh;
+  width: 45vh;
   align-items: flex-end;
   justify-content: center;
   flex-direction: column;
@@ -115,7 +115,7 @@ ul {
 
 .errors {
   color: red;
-  font-family: serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   width: 100%;
 }
 
