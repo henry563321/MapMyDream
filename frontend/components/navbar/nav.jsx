@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Link, Route} from 'react-router-dom';
+import {NavLink, Route} from 'react-router-dom';
 import {logout} from '../../actions/session_actions';
 
 const mapStateToProps = ({session}) => ({
@@ -25,8 +25,10 @@ class NavList extends React.Component {
     if (!this.props.currentUser) {
       return (
         <div>
-          <Link to='/signup'>SignUp</Link>
-          <Link to='/login'>LogIn</Link>
+          <NavLink to='/signup'
+            activeClassName="active-nav-link">SignUp</NavLink>
+          <NavLink to='/login'
+            activeClassName="active-nav-link">LogIn</NavLink>
         </div>
       );
     } else {

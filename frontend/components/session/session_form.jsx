@@ -2,11 +2,13 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Link, Route} from 'react-router-dom';
 import {login, signup} from '../../actions/session_actions';
-
-const mapStateToProps = (session) => ({
-  loggedIn: Boolean(session.currentUser),
-  errors: session.errors
+import { withRouter } from 'react-router-dom';
+const mapStateToProps = (state) => {
+  return ({
+  loggedIn: Boolean(state.session.currentUser),
+  errors: state.session.errors
 });
+};
 
 const mapDispatchToProps = (dispatch, { location }) => {
   const formType = location.pathname.slice(1);
@@ -26,12 +28,21 @@ class SessionForm extends React.Component {
       email: ""
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.renderErrors = this.renderErrors.bind(this);
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.loggedIn) {
+      this.props.history.push('/');
+    }
+  }
+
 
   handleSubmit(e) {
     e.preventDefault();
     const user = Object.assign({}, this.state);
     this.props.processForm(user);
+
   }
 
   update(property) {
@@ -41,19 +52,17 @@ class SessionForm extends React.Component {
   }
 
   renderErrors() {
-    if (this.props.errors) {
-    return(
-      <ul>
-        {this.props.errors.map((error, idx) => (
-          <li >
-            {error}
-          </li>
-        ))}
-      </ul>
-    );
-  } else
-  return null;
-  }
+  return(
+    <ul>
+      {this.props.errors.map((error, i) => (
+        <li key={`error-${i}`}>
+          {error}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 
   renderNavLink() {
     if (this.props.formType === 'login') {
@@ -79,8 +88,9 @@ class SessionForm extends React.Component {
   render() {
     return(
       <div>
-        {this.renderNavLink()}
+
         <form onSubmit={this.handleSubmit}>
+          {this.renderNavLink()}
           {this.renderErrors()}
           <label>Username:
             <input type='text'
@@ -88,18 +98,22 @@ class SessionForm extends React.Component {
               onChange={this.update('username')}
               />
           </label>
+          <br/>
           <label>Password:
             <input type='password'
               value={this.state.pasword}
               onChange={this.update('password')}
               />
           </label>
+          <br/>
           {this.renderEmail()}
-          <button>Submit</button>
+          <br/>
+          <input type="submit" value="Submit" />
         </form>
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SessionForm);
+export default
+  withRouter(connect(mapStateToProps, mapDispatchToProps)(SessionForm));

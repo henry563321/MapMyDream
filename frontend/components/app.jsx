@@ -2,6 +2,7 @@ import React from 'react';
 import NavContainer from './navbar/nav';
 import SessionFormContainer from './session/session_form';
 import {Route} from 'react-router-dom';
+import {AuthRoute} from '../util/route_util';
 
 const App = () => (
   <div>
@@ -9,8 +10,8 @@ const App = () => (
       <h2>Map My Dream</h2>
       <NavContainer />
     </header>
-    <Route path='/login' component={SessionFormContainer}/>
-    <Route path='/signup' component={SessionFormContainer}/>
+    <AuthRoute path='/login' component={SessionFormContainer}/>
+    <AuthRoute path='/signup' component={SessionFormContainer}/>
   </div>
 );
 
