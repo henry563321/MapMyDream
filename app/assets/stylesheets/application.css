@@ -13,3 +13,138 @@
  *= require_tree .
  *= require_self
  */
+.body {
+  display: grid;
+  grid-template-rows: 100px auto 100px;
+  height: 100vh;
+  width: 100%;
+}
+body {
+  height: 100vh;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.headword {
+  font-family: sans-serif;
+  margin-left: 60px;
+  text-shadow: 0 -1px 1px rgba(0,0,0,0.25), -2px 0 1px rgba(0,0,0,0.25);
+}
+
+
+.logintop {
+  font: bold 15px "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.25), -2px 0 1px rgba(0,0,0,0.25);
+	border-radius: 5px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+	color: white;
+	padding: 5px 10px 5px;
+  margin: 10px 10px 10px 10px ;
+	white-space: nowrap;
+	text-decoration: none;
+	cursor: pointer;
+	background: yellow ;
+	border-style: none;
+	text-align: center;
+	overflow: visible;
+}
+
+.logintop:hover {
+  color: grey;
+}
+
+.active-nav-link {
+  background-color: #A9014B;
+}
+
+.signupform {
+  display: flex;
+  width: 40vh;
+  align-items: flex-end;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.swichlog {
+  font: bold 15px "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  text-decoration: none;
+}
+
+.signinput {
+  width: 100%;
+  height: 50px;
+  margin-bottom: 20px;
+}
+
+.signindiv {
+  background-color: #f3e9e9;
+  display: flex;
+  justify-content: center;
+}
+ul {
+  list-style: none;
+}
+
+
+
+.subbut {
+  font: bold 25px "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.25), -2px 0 1px rgba(0,0,0,0.25);
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+	color: white;
+	padding: 5px 5px 5px 5px;
+	white-space: nowrap;
+	text-decoration: none;
+	cursor: pointer;
+	background: #A9014B ;
+	border-style: none;
+	text-align: center;
+	overflow: visible;
+  width: inherit;
+  height: 50px;
+}
+
+.errors {
+  color: red;
+  font-family: serif;
+  width: 100%;
+}
+
+.bodypart {
+  background-image: url("front_page_img.jpg");
+  background-position:center;
+  background-size:cover;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.guestlink {
+  font: bold 25px "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.25), -2px 0 1px rgba(0,0,0,0.25);
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+	color: white;
+	padding: 5px 10px 5px;
+  margin: 20px 20px 20px 40px;
+	white-space: nowrap;
+	text-decoration: none;
+	cursor: pointer;
+	background: #A9014B ;
+	border-style: none;
+	text-align: center;
+	overflow: visible;
+}
