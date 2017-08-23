@@ -44,7 +44,7 @@ class dreamMap extends React.Component {
   render() {
     return (
         <div ref={map => this.mapNode = map}>
-
+          
         </div>
     );
   }
