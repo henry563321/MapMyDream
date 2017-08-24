@@ -5,7 +5,7 @@ class Api::RoutesController < ApplicationController
   end
 
   def create
-    @route = Route.new(route_params)
+    @route = current_user.routes.new(route_params)
     if @route.save
       render "api/routes/show"
     else
@@ -25,6 +25,6 @@ class Api::RoutesController < ApplicationController
   private
 
   def route_params
-    params.require(:route).permit(:user_id, :start_time, :route, :end_time)
+    params.require(:dream).permit(:start_time, :route, :end_time)
   end
 end

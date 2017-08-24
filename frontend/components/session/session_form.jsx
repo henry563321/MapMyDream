@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {Link, Route} from 'react-router-dom';
 import {login, signup, clearErrors} from '../../actions/session_actions';
 import { withRouter } from 'react-router-dom';
+
 const mapStateToProps = (state) => {
   return ({
   loggedIn: Boolean(state.session.currentUser),

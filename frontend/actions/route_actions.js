@@ -20,6 +20,6 @@ export const clearDreamErrors = () => ({
 
 export const addNewDream = dream => dispatch => (
   APIUtil.createDream(dream)
-  .then(newDream => dispatch(receiveSingleDream(newDream)),
-  errors => dispatch(receiveDreamErrors(errors.responseJSON))
+  .then(newDream => dispatch(receiveSingleDream(newDream),
+    errors => dispatch(receiveDreamErrors(errors)))
 ));

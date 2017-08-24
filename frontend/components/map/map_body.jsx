@@ -1,5 +1,13 @@
 import React from 'react';
 import {addNewDream} from '../../actions/route_actions';
+import {connect} from 'react-redux';
+
+const mapStateToProps = (state) => {
+  return ({
+  loggedIn: Boolean(state.session.currentUser),
+  errors: state.dream.errors
+});
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -38,39 +46,59 @@ class dreamMap extends React.Component {
   }
 
 
-    update(property) {
-      return e => this.setState({
-        [property]: e.currentTarget.value
-      });
-    }
+  update(property) {
+    return e => this.setState({
+      [property]: e.currentTarget.value
+    });
+  }
 
-   addLatLng(event) {
-        var path = this.state.poly.getPath();
-        path.push(event.latLng);
-        var encodeString = google.maps.geometry.encoding.encodePath(path);
-        var dist = google.maps.geometry.spherical.computeLength(this.state.poly.getPath());
-        this.setState({distance: (dist/1000).toFixed(1)});
-      }
+  addLatLng(event) {
+    var path = this.state.poly.getPath();
+    path.push(event.latLng);
+    var dist = google
+      .maps.geometry.spherical.computeLength(this.state.poly.getPath());
+    this.setState({distance: (dist/1000).toFixed(1)});
+  }
+
+  renderErrors() {
+    return(
+      <ul className="errors">
+        {this.props.errors.map((error, idx) => (
+          <li key={idx}>
+            {error}
+          </li>
+        ))}
+      </ul>
+    );
+  }
 
 
-    removeLine() {
-      this.state.poly.setMap(null);
-      this.state.poly = new google.maps.Polyline({
-            strokeColor: '#000000',
-            strokeOpacity: 1.0,
-            strokeWeight: 3
-          });
-      this.state.poly.setMap(this.map);
-      this.setState({distance: 0.0});
-    }
+  removeLine() {
+    this.state.poly.setMap(null);
+    this.state.poly = new google.maps.Polyline({
+          strokeColor: '#000000',
+          strokeOpacity: 1.0,
+          strokeWeight: 3
+        });
+    this.state.poly.setMap(this.map);
+    this.setState({distance: 0.0});
+  }
 
-    handleSubmit(e) {
-      e.preventDefault();
-      const startTime = new Date(this.state.start_date + " " + this.state.start_time);
-      const endTime = new Date(this.state.start_date + " " + this.state.start_time);
-
-      debugger;
-    }
+  handleSubmit(e) {
+    e.preventDefault();
+    const startTime = new Date(
+      this.state.start_date + " " + this.state.start_time);
+    const endTime = new Date(
+      this.state.start_date + " " + this.state.start_time);
+    const encodeString =
+      google.maps.geometry.encoding.encodePath(this.state.poly.getPath());
+    const dream = {
+      start_time: startTime,
+      end_time: endTime,
+      route: encodeString
+    };
+    this.props.addRoute(dream).then(eo => console.log(eo));
+  }
 
 
   render() {
@@ -78,7 +106,8 @@ class dreamMap extends React.Component {
     return (
       <div className='Map'>
         <div id='mapform'>
-
+          {this.renderErrors()}
+          <button onClick={this.removeLine}>Remove Dream</button>
           <span>Distance: {this.state.distance}Km</span>
           <form onSubmit={this.handleSubmit}>
             <label>Start Time
@@ -99,4 +128,4 @@ class dreamMap extends React.Component {
   }
 }
 
-export default dreamMap;
+export default connect(mapStateToProps,mapDispatchToProps)(dreamMap);
