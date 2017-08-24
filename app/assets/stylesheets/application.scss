@@ -149,13 +149,17 @@ ul {
 	overflow: visible;
 }
 
-.map {
-  display: grid;
-  grid-template-columns:200px auto;
-  width: 100%;
-}
 
 #map {
+  float: right;
   width: 75%;
+  height: 100%;
+}
+
+#mapform {
+  float: left;
+  display: flex;
+  flex-direction: column;
+  width: 25%;
   height: 100%;
 }

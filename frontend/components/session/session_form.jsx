@@ -109,7 +109,7 @@ class SessionForm extends React.Component {
               placeholder='password'
               />
           {this.renderEmail()}
-          <input type="submit" className="subbut"value={button} />
+          <input type="submit" className="subbut" value={button} />
         </form>
       </div>
     );

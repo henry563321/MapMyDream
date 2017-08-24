@@ -1,5 +1,11 @@
 import React from 'react';
+import {addNewDream} from '../../actions/route_actions';
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addRoute: dream => dispatch(addNewDream(dream))
+  };
+};
 
 class dreamMap extends React.Component {
   constructor(props) {
@@ -10,11 +16,15 @@ class dreamMap extends React.Component {
             strokeOpacity: 1.0,
             strokeWeight: 3
           }),
-      location: "",
-      StartTime: ""
+      start_time: new Date(),
+      start_date: new Date(),
+      end_time: new Date(),
+      end_date: new Date(),
+      distance: 0.0,
     };
     this.addLatLng = this.addLatLng.bind(this);
     this.removeLine = this.removeLine.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
 }
 
   componentDidMount() {
@@ -24,54 +34,66 @@ class dreamMap extends React.Component {
     };
     this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
     this.state.poly.setMap(this.map);
-
-        // Add a listener for the click event
     this.map.addListener('click', this.addLatLng);
-    google.maps.LatLng.prototype.kmTo = function(a){
-    var e = Math, ra = e.PI/180;
-    var b = this.lat() * ra, c = a.lat() * ra, d = b - c;
-    var g = this.lng() * ra - a.lng() * ra;
-    var f = 2 * e.asin(e.sqrt(e.pow(e.sin(d/2), 2) + e.cos(b) * e.cos(c) * e.pow(e.sin(g/2), 2)));
-    return f * 6378.137;
-}
-
-    google.maps.Polyline.prototype.inKm = function(n){
-    var a = this.getPath(n), len = a.getLength(), dist = 0;
-    for (var i=0; i < len-1; i++) {
-       dist += a.getAt(i).kmTo(a.getAt(i+1));
-    }
-    return dist;
   }
-}
+
+
+    update(property) {
+      return e => this.setState({
+        [property]: e.currentTarget.value
+      });
+    }
 
    addLatLng(event) {
         var path = this.state.poly.getPath();
-        // Because path is an MVCArray, we can simply append a new coordinate
-        // and it will automatically appear.
         path.push(event.latLng);
-        // Add a new marker at the new plotted point on the polyline.
         var encodeString = google.maps.geometry.encoding.encodePath(path);
-        var meters = google.maps.geometry.spherical.computeLength(this.state.poly.getPath());
-        console.log(meters);
+        var dist = google.maps.geometry.spherical.computeLength(this.state.poly.getPath());
+        this.setState({distance: (dist/1000).toFixed(1)});
       }
+
+
     removeLine() {
       this.state.poly.setMap(null);
-      this.setState({props :new google.maps.Polyline({
+      this.state.poly = new google.maps.Polyline({
             strokeColor: '#000000',
             strokeOpacity: 1.0,
             strokeWeight: 3
-          })});
-      debugger;
+          });
       this.state.poly.setMap(this.map);
+      this.setState({distance: 0.0});
     }
 
+    handleSubmit(e) {
+      e.preventDefault();
+      const startTime = new Date(this.state.start_date + " " + this.state.start_time);
+      const endTime = new Date(this.state.start_date + " " + this.state.start_time);
+
+      debugger;
+    }
+
+
   render() {
+
     return (
       <div className='Map'>
-        <div id='map'></div>
         <div id='mapform'>
-          <button onClick={this.removeLine}>Remove Dream</button>
+
+          <span>Distance: {this.state.distance}Km</span>
+          <form onSubmit={this.handleSubmit}>
+            <label>Start Time
+            <input type='time' onChange={this.update('start_time')}/>
+            <input type='date' onChange={this.update('start_date')}/>
+            </label>
+            <br/>
+            <label>End Time
+            <input type='time' onChange={this.update('end_time')}/>
+            <input type='date' onChange={this.update('end_date')}/>
+            </label>
+            <input type="submit" value="Create New Dream" />
+          </form>
         </div>
+        <div id='map'></div>
       </div>
     );
   }
