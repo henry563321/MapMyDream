@@ -1,4 +1,4 @@
-import * as APIUtil from '../util/dream_api_util';
+import * as APIUtil from '../util/dream_util';
 
 export const RECEIVE_SINGLE_DREAM = 'RECEIVE_SINGLE_DREAM';
 export const RECEIVE_DREAM_ERRORS= 'RECEIVE_DREAM_ERRORS';
