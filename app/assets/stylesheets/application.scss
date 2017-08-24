@@ -149,7 +149,13 @@ ul {
 	overflow: visible;
 }
 
+.map {
+  display: grid;
+  grid-template-columns:200px auto;
+  width: 100%;
+}
+
 #map {
-  width: 500px;
-  height: 500px;
+  width: 75%;
+  height: 100%;
 }
