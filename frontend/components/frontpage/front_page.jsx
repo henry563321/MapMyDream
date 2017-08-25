@@ -21,7 +21,7 @@ class frontPage extends React.Component {
   }
 
   handleClick() {
-    this.props.login({username: "guest", password: "123456"});
+    this.props.login({username: "guest", password: "123456"}).then( () => this.props.history.push('/home'));
   }
 
   render() {
@@ -38,4 +38,4 @@ class frontPage extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(frontPage);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(frontPage));

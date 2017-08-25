@@ -1,9 +1,11 @@
 import { values } from 'lodash';
 
 export const selectDreams = (data) => {
-  return values(data);
-};
-
-export const selectUserDreams = (state, user) => {
-  return user.dreamids.map(id => state.dream.index[id])
+  if (data) {
+    const dreams = [];
+    data.ord.forEach((id) => dreams.push(values(data.index[id])));
+    return dreams;
+  } else {
+    return [];
+  }
 };

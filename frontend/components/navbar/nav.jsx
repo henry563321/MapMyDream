@@ -18,7 +18,7 @@ class NavList extends React.Component {
   }
 
   handleClick() {
-    this.props.logout();
+    this.props.logout().then(() => this.props.history.push('/'));
   }
 
   navLinks() {
@@ -26,7 +26,6 @@ class NavList extends React.Component {
       <div className='navlinks'>
       <Link to='/'className="headword">Map My Dream</Link>
       <Link className='logintop' to="/dream/create" >CreateDream</Link>
-      <Link className='logintop' to="/dream/views" >VeiwDreams</Link>
       </div>
     );
   }

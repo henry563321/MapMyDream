@@ -7,7 +7,6 @@ import FrontPageContainer from './frontpage/front_page';
 import MapContainer from './map/map_body';
 import HomePageContainer from './homepage/home_page';
 import {BackRoute} from '../util/back_util';
-import DreamViewContainer from './dreams/view_dream';
 
 const App = () => (
   <div className='body'>
@@ -15,8 +14,7 @@ const App = () => (
       <NavContainer />
     </header>
     <Route exact path='/' component={FrontPageContainer}/>
-    <Route exact path='/' component={HomePageContainer}/>
-    <Route exact path='/dream/views' component={DreamViewContainer}/>
+    <Route exact path='/home' component={HomePageContainer}/>
     <BackRoute path='/dream/create' component={MapContainer}/>
     <AuthRoute path='/login' component={SessionFormContainer}/>
     <AuthRoute path='/signup' component={SessionFormContainer}/>

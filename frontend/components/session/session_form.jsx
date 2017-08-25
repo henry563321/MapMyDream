@@ -34,7 +34,7 @@ class SessionForm extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.loggedIn) {
-      this.props.history.push('/');
+      this.props.history.push('/home');
     }
 
   }
@@ -72,10 +72,10 @@ class SessionForm extends React.Component {
 
   renderNavLink() {
     if (this.props.formType === 'login') {
-      return (<Link className="swichlog" to='./signup'>sign up</Link>);
+      return (<Link className="swichlog" to='/signup'>sign up</Link>);
     }
     else
-      return (<Link className="swichlog" to='./login'>log in</Link>);
+      return (<Link className="swichlog" to='/login'>log in</Link>);
   }
 
   renderEmail() {

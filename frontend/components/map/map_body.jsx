@@ -103,7 +103,7 @@ class dreamMap extends React.Component {
       end_time: endTime,
       route: encodeString
     };
-    this.props.addRoute(dream).then(() => this.props.history.push('/'));
+    this.props.addRoute(dream).then(() => this.props.history.push('/home'));
   }
 
 
