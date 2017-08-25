@@ -18,16 +18,31 @@ class NavList extends React.Component {
   }
 
   handleClick() {
-    this.props.logout().then(() => this.props.history.push('/'));
+    this.props.logout().then(() => this.props.history.push('/login'));
   }
 
   navLinks() {
     return(
       <div className='navlinks'>
-      <Link to='/'className="headword">Map My Dream</Link>
-      <Link className='logintop' to="/dream/create" >CreateDream</Link>
+      <Link to='/'className="headword">MapMyDream</Link>
+      <Link className='createroutelink' to="/dream/create" >CreateDream</Link>
       </div>
     );
+  }
+
+  signlink() {
+    if (this.props.location.pathname === "/") {
+      return(
+        <div className='navlink'>
+          <NavLink to='/login'  className='logintop'
+              >LOG IN</NavLink>
+          <NavLink to='/signup' className='signuptop'
+            >SIGN UP</NavLink>
+        </div>
+      );
+    } else {
+      return null;
+    }
   }
 
   render() {
@@ -35,22 +50,19 @@ class NavList extends React.Component {
       return (
         <div className="navbar">
           {this.navLinks()}
-          <div className='navlink'>
-          <NavLink to='/signup' className='logintop'
-            activeClassName="active-nav-link">SignUp</NavLink>
-          <NavLink to='/login'  className='logintop'
-            activeClassName="active-nav-link">LogIn</NavLink>
-        </div>
+          {this.signlink()}
         </div>
       );
     } else {
       return(
         <div className="navbar">
           {this.navLinks()}
-          <div className='navlink'>
-            <span className="headword">WelCome,{this.props.currentUser.username}</span>
-            <button className='logintop' onClick={this.handleClick}>LogOut</button>
-        </div>
+          <div className="dropdown">
+            <img class="dropbtn"></img>
+            <div id="myDropdown" className="dropdown-content">
+              <a onClick={this.handleClick}>LOG OUT</a>
+            </div>
+          </div>
         </div>
 
       );

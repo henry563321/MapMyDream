@@ -47,10 +47,39 @@ class dreamMap extends React.Component {
     var searchBox = new google.maps.places.SearchBox(input);
     this.map.addListener('bounds_changed', () => {
         searchBox.setBounds(this.map.getBounds());
-        });
-    var bounds = new google.maps.LatLngBounds();
-    }
+    });
+    const map = this.map;
+    searchBox.addListener('places_changed', () => {
+         var places = searchBox.getPlaces();
 
+         if (places.length == 0) {
+           return;
+         }
+         var bounds = new google.maps.LatLngBounds();
+               places.forEach(function(place) {
+                 if (!place.geometry) {
+                   console.log("Returned place contains no geometry");
+                   return;
+                 }
+                 var icon = {
+                   url: place.icon,
+                   size: new google.maps.Size(71, 71),
+                   origin: new google.maps.Point(0, 0),
+                   anchor: new google.maps.Point(17, 34),
+                   scaledSize: new google.maps.Size(25, 25)
+                 };
+
+             if (place.geometry.viewport) {
+             // Only geocodes have viewport.
+             bounds.union(place.geometry.viewport);
+           } else {
+             bounds.extend(place.geometry.location);
+           }
+         });
+         map.fitBounds(bounds);
+       });
+
+     }
 
   update(property) {
     return e => this.setState({
