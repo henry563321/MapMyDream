@@ -1,11 +1,9 @@
 export const createDream = (dream) => {
-  return(
-    $.ajax({
+  return $.ajax({
       method: 'POST',
       url: 'api/routes',
       data: {dream}
-    })
-  );
+    });
 };
 
 export const showDream = (id) => {
@@ -14,6 +12,15 @@ export const showDream = (id) => {
       method: 'GET',
       url: 'api/routes',
       data: {id}
+    })
+  );
+};
+
+export const getDream = () => {
+  return(
+    $.ajax({
+      method: 'GET',
+      url: 'api/routes',
     })
   );
 };

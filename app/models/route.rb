@@ -6,6 +6,8 @@ class Route < ApplicationRecord
   belongs_to :user
 
   def ensure_time_valid
-    errors.add_to_base("must be valid time") if self.start_time < self.end_time
+    if (start_time <=> end_time) == 1
+      errors.add(:end_time, "can't be smaller than start_time")
+    end
   end
 end

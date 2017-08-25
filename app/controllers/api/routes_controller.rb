@@ -1,4 +1,9 @@
 class Api::RoutesController < ApplicationController
+  def index
+    @routes = Route.all
+    render "api/routes/index"
+  end
+
   def show
     @route = Route.find(params[:id])
     render json: show

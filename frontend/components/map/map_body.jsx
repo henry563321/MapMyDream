@@ -37,13 +37,19 @@ class dreamMap extends React.Component {
 
   componentDidMount() {
     const mapOptions = {
-      center: { lat: 37.7758, lng: -122.435 },
+      center: { lat: 40.7128, lng: -74.0059 },
       zoom: 13
     };
     this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
     this.state.poly.setMap(this.map);
     this.map.addListener('click', this.addLatLng);
-  }
+    var input = document.getElementById('pac-input');
+    var searchBox = new google.maps.places.SearchBox(input);
+    this.map.addListener('bounds_changed', () => {
+        searchBox.setBounds(this.map.getBounds());
+        });
+    var bounds = new google.maps.LatLngBounds();
+    }
 
 
   update(property) {
@@ -89,7 +95,7 @@ class dreamMap extends React.Component {
     const startTime = new Date(
       this.state.start_date + " " + this.state.start_time);
     const endTime = new Date(
-      this.state.start_date + " " + this.state.start_time);
+      this.state.end_date + " " + this.state.end_time);
     const encodeString =
       google.maps.geometry.encoding.encodePath(this.state.poly.getPath());
     const dream = {
@@ -97,7 +103,7 @@ class dreamMap extends React.Component {
       end_time: endTime,
       route: encodeString
     };
-    this.props.addRoute(dream).then(eo => console.log(eo));
+    this.props.addRoute(dream).then(() => this.props.history.push('/'));
   }
 
 
@@ -106,6 +112,8 @@ class dreamMap extends React.Component {
     return (
       <div className='Map'>
         <div id='mapform'>
+          <input id="pac-input"
+            class="controls" type="text" placeholder="where you start your dream"/>
           {this.renderErrors()}
           <button onClick={this.removeLine}>Remove Dream</button>
           <span>Distance: {this.state.distance}Km</span>
