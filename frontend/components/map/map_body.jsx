@@ -97,7 +97,7 @@ class dreamMap extends React.Component {
 
   renderErrors() {
     return(
-      <ul className="errors">
+      <ul className="dreamerrors">
         {this.props.errors.map((error, idx) => (
           <li key={idx}>
             {error}
@@ -142,21 +142,29 @@ class dreamMap extends React.Component {
       <div className='Map'>
         <div id='mapform'>
           <input id="pac-input"
-            class="controls" type="text" placeholder="where you start your dream"/>
+          class="controls" type="text"
+          placeholder="Dream Location"/>
           {this.renderErrors()}
-          <button onClick={this.removeLine}>Remove Dream</button>
-          <span>Distance: {this.state.distance}Km</span>
+          <button className="createbut deletedream"
+            onClick={this.removeLine}>Remove Dream</button>
+          <span className='titledistance'>Distance: {this.state.distance}Km</span>
           <form onSubmit={this.handleSubmit}>
-            <label>Start Time
-            <input type='time' onChange={this.update('start_time')}/>
-            <input type='date' onChange={this.update('start_date')}/>
-            </label>
-            <br/>
-            <label>End Time
-            <input type='time' onChange={this.update('end_time')}/>
-            <input type='date' onChange={this.update('end_date')}/>
-            </label>
-            <input type="submit" value="Create New Dream" />
+            <h5>StartTime:</h5>
+            <h5>Time:</h5>
+            <input className='timeinput'type='time'
+              onChange={this.update('start_time')}/>
+            <h5>Date:</h5>
+            <input className='timeinput'type='date'
+              onChange={this.update('start_date')}/>
+            <h5>EndTime:</h5>
+            <h5>Time:</h5>
+            <input className='timeinput'type='time'
+              onChange={this.update('end_time')}/>
+            <h5>Date:</h5>
+            <input className='timeinput' type='date'
+              onChange={this.update('end_date')}/>
+            <input type="submit"
+              className="createbut"value="Create New Dream" />
           </form>
         </div>
         <div id='map'></div>
