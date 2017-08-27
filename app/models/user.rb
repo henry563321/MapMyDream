@@ -10,6 +10,17 @@ class User < ApplicationRecord
 
   has_many :routes
 
+  has_many(
+    :friends,
+    foreign_key: :user_id
+  )
+
+  has_many(
+    :applier,
+    class_name: 'friends',
+    foreign_key: :apply_user_id,
+  )
+
   def self.generate_session_token
     SecureRandom.urlsafe_base64(16)
   end

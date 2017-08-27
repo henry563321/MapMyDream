@@ -8,5 +8,20 @@
 User.destroy_all
 users = []
 10.times do
-  users << User.create!(username: Faker::Pokemon.name, email: Faker::Internet.email, password: "123456")
+  begin
+    users << User.create!(username: Faker::Pokemon.name, email: Faker::Internet.email, password: "123456")
+  rescue
+    retry
+  end
+end
+
+STATUS = ['PENDING', 'APPROVED', 'DENIED']
+
+Friend.destroy_all
+20.times do
+  begin
+    Friend.create!(user_id: users.sample.id, apply_user_id: users.sample.id, status: STATUS.sample)
+  rescue
+    retry
+  end 
 end
