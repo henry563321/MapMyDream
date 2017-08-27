@@ -17,7 +17,7 @@ class User < ApplicationRecord
 
   has_many(
     :applier,
-    class_name: 'friends',
+    class_name: 'Friend',
     foreign_key: :apply_user_id,
   )
 

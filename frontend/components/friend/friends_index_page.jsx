@@ -1,6 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {fetchAllFriends} from '../../actions/friend_actions';
+import {selectFriends} from '../../reducers/selectors';
+
+const mapStateToProps = (state) => {
+  return ({
+    friends : selectFriends(state.friend.friends)
+});
+};
 
 
 const mapDispatchToProps = (dispatch) => ({
@@ -14,12 +21,22 @@ class friendIndexPage extends React.Component {
 
 
   render() {
-    return (
-      <ul>
-      </ul>
+    if (this.props.friends.length !== 0) {
+      debugger;
+      return (
+        <ul className="friends">
+          {this.props.friends[0].friends.map((friend, idx) => (
+            <li key={idx}>
+              {friend}
+            </li>
+          ))}
+        </ul>
 
-    );
+      );
+    } else {
+      return null;
     }
   }
+}
 
-export default connect(null, mapDispatchToProps)(friendIndexPage);
+export default connect(mapStateToProps, mapDispatchToProps)(friendIndexPage);

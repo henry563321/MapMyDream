@@ -1,4 +1,4 @@
-import { RECEIVE_ALL_FRIENDS } from '../actions/friend_action';
+import { RECEIVE_ALL_FRIENDS } from '../actions/friend_actions';
 import merge from 'lodash/merge';
 
 const nullFriend = Object.freeze({
@@ -11,7 +11,7 @@ const friendReducer = (state = nullFriend, action) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_ALL_FRIENDS:
-      return merge({}, state, {dream: action.friends});
+      return merge({}, state, {friends: action.friends});
     default:
       return state;
   }

@@ -58,7 +58,6 @@ class NavList extends React.Component {
         <div className="navbar">
           {this.navLinks()}
           <div className="dropdown">
-            <img class="dropbtn"></img>
             <div id="myDropdown" className="dropdown-content">
               <a >Friends</a>
               <a onClick={this.handleClick}>Logout</a>

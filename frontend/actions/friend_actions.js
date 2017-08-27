@@ -9,6 +9,6 @@ export const receiveAllFriends = (friends) => ({
 
 export const fetchAllFriends = () => dispatch => (
   APIUtil.getFriends()
-  .then(friends => console.log(friends))
+  .then(friends => dispatch(receiveAllFriends(friends)))
 
 );
