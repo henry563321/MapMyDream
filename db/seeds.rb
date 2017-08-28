@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 User.destroy_all
 users = []
-5.times do
+7.times do
   begin
     users << User.create!(username: Faker::Pokemon.name, email: Faker::Internet.email, password: "123456")
   rescue
@@ -20,10 +20,10 @@ users << User.create!(username: 'guest', email: Faker::Internet.email, password:
 STATUS = ['PENDING', 'APPROVED', 'DENIED']
 
 Friend.destroy_all
-20.times do
-  begin
-    Friend.create!(user_id: users.sample.id, apply_user_id: users.sample.id, status: STATUS.sample)
-  rescue
-    retry
-  end
-end
+Friend.create!(user_id: users.last.id, apply_user_id: users[1].id, status: "PENDING")
+Friend.create!(user_id: users.last.id, apply_user_id: users[2].id, status: "APPROVED")
+Friend.create!(user_id: users.last.id, apply_user_id: users[3].id, status: "DENIED")
+Friend.create!(user_id: users.last.id, apply_user_id: users[4].id, status: "PENDING")
+Friend.create!(user_id: users[5].id, apply_user_id: users.last.id, status: "PENDING")
+Friend.create!(user_id: users[6].id, apply_user_id: users.last.id, status: "APPROVED")
+Friend.create!(user_id: users[0].id, apply_user_id: users.last.id, status: "DENIED")

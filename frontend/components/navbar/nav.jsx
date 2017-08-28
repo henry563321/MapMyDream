@@ -59,7 +59,7 @@ class NavList extends React.Component {
           {this.navLinks()}
           <div className="dropdown">
             <div id="myDropdown" className="dropdown-content">
-              <a >Friends</a>
+              <Link to='/home/friends'>Friends</Link>
               <a onClick={this.handleClick}>Logout</a>
             </div>
           </div>

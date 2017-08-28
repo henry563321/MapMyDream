@@ -10,7 +10,6 @@ export const selectDreams = (data) => {
   }
 };
 
-//将得到的朋友信息分为三类：确定是朋友的
 
 export const selectFriends = (data) => {
   if (data.applier) {
@@ -21,7 +20,7 @@ export const selectFriends = (data) => {
       if ( apply.status === 'APPROVED' ) {
        friends.push(values(apply));
       }
-      else {
+      else if ( apply.status === 'PENDING' ){
        applier.push(values(apply));
       }
     }

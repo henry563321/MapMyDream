@@ -14,9 +14,8 @@ class Api::FriendsController < ApplicationController
   end
 
   def destroy
-    @friend = Route.find(params[:id])
+    @friend = Friend.find(params[:id])
     if @friend.destroy
-      render "api/friends/index"
     else
       render json: @friend.errors.full_messages, status: 422
     end

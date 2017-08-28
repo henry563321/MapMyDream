@@ -10,5 +10,9 @@ export const receiveAllFriends = (friends) => ({
 export const fetchAllFriends = () => dispatch => (
   APIUtil.getFriends()
   .then(friends => dispatch(receiveAllFriends(friends)))
+);
 
+export const deleteFriend = (id) => dispatch => (
+  APIUtil.deleteFriend(id)
+  .then(friends => dispatch(receiveAllFriends(friends)))
 );
