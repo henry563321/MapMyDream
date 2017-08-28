@@ -4,6 +4,7 @@ import {fetchAllFriends, deleteFriend, updateFriend, searchFriend, addFriend}
   from '../../actions/friend_actions';
 import {selectFriends, selectUsers} from '../../reducers/selectors';
 import {withRouter} from 'react-router-dom';
+import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
 
 const mapStateToProps = (state) => {
   return ({
@@ -141,8 +142,21 @@ class friendIndexPage extends React.Component {
   render() {
     return (
         <div>
-          {this.renderfriends()}
-          {this.rendersearch()}
+          <h1>MY FRIENDS</h1>
+          <Tabs defaultTab="one" >
+            <TabList>
+               <Tab tabFor="one">MY FRIENDS</Tab>
+               <Tab tabFor="two">FIND FRIENDS</Tab>
+             </TabList>
+             <TabPanel tabId="one">
+               {this.renderfriends()}
+             </TabPanel>
+             <TabPanel tabId="two">
+                 {this.rendersearch()}
+             </TabPanel>
+          </Tabs>
+
+
         </div>
     );
   }
