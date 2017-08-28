@@ -47,6 +47,7 @@ body {
   display: flex;
   width: 45vh;
   align-items: flex-end;
+  justify-content: center;
   flex-direction: column;
 }
 
@@ -102,7 +103,6 @@ ul {
   color: red;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   width: 100%;
-  margin: auto 0;
 }
 
 .dreamerrors {
@@ -161,13 +161,14 @@ ul {
 
 #mapform {
   float: left;
-  display: flex;
+  display: flex
+  ;
   flex-direction: column;
-  align-items: baseline;
-  width: 20%;
+  align-items: flex-start;
+  width: 21%;
   height: 100%;
   box-sizing: border-box;
-  margin-left: 30px;
+  margin-left: 45px;
 }
 
 .logintop {
@@ -192,7 +193,16 @@ ul {
     text-decoration: none;
     zoom: 1;
     margin-top: 20px;
+    width: 80%;
 }
+
+.deletedream {
+  margin-top: 0;
+  background: linear-gradient(to bottom, #b6b6b6 5%, #a9a6a6 100%);
+  width: 70%;
+
+}
+
 
 h5 {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -273,12 +283,6 @@ h5 {
     background-color: #3e8e41;
 }
 
-.deletedream {
-  margin-top: 0;
-  background: linear-gradient(to bottom, #b6b6b6 5%, #a9a6a6 100%);
-  width: auto;
-
-}
 
 .timeinput {
   size: 30px;
