@@ -12,13 +12,13 @@ class User < ApplicationRecord
 
   has_many(
     :friends,
-    foreign_key: :user_id
+    foreign_key: :apply_user_id
   )
 
   has_many(
     :applier,
     class_name: 'Friend',
-    foreign_key: :apply_user_id,
+    foreign_key: :user_id,
   )
 
   def self.generate_session_token

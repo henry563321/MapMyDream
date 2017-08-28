@@ -32,3 +32,6 @@ export const searchFriend = (keyword) => dispatch => (
   APIUtil.searchFriend(keyword)
   .then(users => dispatch(receiveMatchUsers(users)))
 );
+export const addFriend = (friend) => dispatch => (
+  APIUtil.addFriend(friend)
+);

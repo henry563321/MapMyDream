@@ -1,13 +1,15 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {fetchAllFriends, deleteFriend, updateFriend, searchFriend}
+import {fetchAllFriends, deleteFriend, updateFriend, searchFriend, addFriend}
   from '../../actions/friend_actions';
 import {selectFriends, selectUsers} from '../../reducers/selectors';
+import {withRouter} from 'react-router-dom';
 
 const mapStateToProps = (state) => {
   return ({
     friends : selectFriends(state.friend.friends),
-    users : selectUsers(state.user.user, state.friend.friends),
+    users : selectUsers(
+      state.user.user, state.friend.friends, state.session.currentUser),
     currentUser: state.session.currentUser
 });
 };
@@ -17,7 +19,8 @@ const mapDispatchToProps = (dispatch) => ({
   updateFriend:(friend) => dispatch(updateFriend(friend)),
   unFriend:(id) => dispatch(deleteFriend(id)),
   receiveAllFriends: () => dispatch(fetchAllFriends()),
-  searchFriend: (keyword) => dispatch(searchFriend(keyword))
+  searchFriend: (keyword) => dispatch(searchFriend(keyword)),
+  addFriend: (friend) => dispatch(addFriend(friend))
 });
 
 class friendIndexPage extends React.Component {
@@ -42,12 +45,12 @@ class friendIndexPage extends React.Component {
 
   handleAccept(friend) {
     friend[2] = 'APPROVED';
-    this.props.updateFriend(friend);
+    this.props.updateFriend(friend).then(() => this.props.receiveAllFriends());
   }
 
   handleDenied(friend) {
     friend[2] = 'DENIED';
-    this.props.updateFriend(friend);
+    this.props.updateFriend(friend).then(() => this.props.receiveAllFriends());
   }
 
   handleSearch(e) {
@@ -94,11 +97,11 @@ class friendIndexPage extends React.Component {
 
   addFriend(user) {
     const request = {
-      user_id: user.id,
-      apply_user_id: this.props.currentUser,
+      user_id: user[0],
+      apply_user_id: this.props.currentUser.id,
       status: 'PENDING'
     };
-    this.props.addFriend(request);
+    this.props.addFriend(request).then(() => this.props.receiveAllFriends());
   }
 
   rendersearch() {

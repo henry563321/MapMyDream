@@ -12,13 +12,13 @@ class Friend < ApplicationRecord
   belongs_to(
     :applier,
     class_name: 'User',
-    foreign_key: :apply_user_id,
+    foreign_key: :user_id,
   )
 
   belongs_to(
     :friends,
     class_name: 'User',
-    foreign_key: :user_id,
+    foreign_key: :apply_user_id,
   )
 
 

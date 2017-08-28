@@ -15,6 +15,7 @@ users = []
   end
 end
 
+users << User.create!(username: 'bolei', email: Faker::Internet.email, password: "123456")
 users << User.create!(username: 'guest', email: Faker::Internet.email, password: "123456")
 
 STATUS = ['PENDING', 'APPROVED', 'DENIED']

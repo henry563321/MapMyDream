@@ -37,3 +37,12 @@ export const searchFriend = (keyword) => {
     })
   );
 };
+export const addFriend = (friend) => {
+  return(
+    $.ajax({
+      method: 'POST',
+      url: `api/friends`,
+      data: {friend}
+    })
+  );
+};
