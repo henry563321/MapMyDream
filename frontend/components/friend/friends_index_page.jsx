@@ -5,10 +5,10 @@ import {fetchAllFriends, deleteFriend, updateFriend, searchFriend}
 import {selectFriends, selectUsers} from '../../reducers/selectors';
 
 const mapStateToProps = (state) => {
-  debugger;
   return ({
     friends : selectFriends(state.friend.friends),
-    users : selectUsers(state.user.user)
+    users : selectUsers(state.user.user, state.friend.friends),
+    currentUser: state.session.currentUser
 });
 };
 
@@ -92,6 +92,15 @@ class friendIndexPage extends React.Component {
     });
   }
 
+  addFriend(user) {
+    const request = {
+      user_id: user.id,
+      apply_user_id: this.props.currentUser,
+      status: 'PENDING'
+    };
+    this.props.addFriend(request);
+  }
+
   rendersearch() {
     if (this.props.friends.length !== 0) {
     return (
@@ -107,6 +116,7 @@ class friendIndexPage extends React.Component {
           {this.props.users.map((user, idx) => (
             <li key={idx}>
               {user}
+              <button onClick={this.addFriend.bind(this, user)}>ADD</button>
             </li>
           ))}
         </ul>

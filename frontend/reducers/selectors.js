@@ -10,10 +10,17 @@ export const selectDreams = (data) => {
   }
 };
 
-export const selectUsers = (data) => {
+export const selectUsers = (data, friends) => {
   if (data) {
     const users = [];
-    data.ord.forEach((id) => users.push(values(data.index[id])));
+    const alreadyFriends = [];
+    friends.applier.forEach((applier) => alreadyFriends.push(applier.name));
+    friends.friends.forEach((friend) => alreadyFriends.push(friend.name));
+    data.ord.forEach((id) => {
+      if (!alreadyFriends.includes(data.index[id].username)) {
+        users.push(values(data.index[id]));
+      }
+    });
     return users;
   } else {
     return [];
