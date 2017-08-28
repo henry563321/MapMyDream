@@ -27,3 +27,13 @@ export const updateFriend = (data) => {
     })
   );
 };
+
+export const searchFriend = (keyword) => {
+  return(
+    $.ajax({
+      method: 'GET',
+      url: `api/users`,
+      data: {keyword}
+    })
+  );
+};

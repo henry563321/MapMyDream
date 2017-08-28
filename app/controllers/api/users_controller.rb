@@ -13,6 +13,15 @@ class Api::UsersController < ApplicationController
     end
   end
 
+  def index
+    if params[:keyword][:username] != ""
+      @users = User.where('username like ?', "%#{params[:keyword][:username]}%")
+    else
+      @users = []
+    end
+    render "api/users/index"
+  end
+
   private
 
   def user_params

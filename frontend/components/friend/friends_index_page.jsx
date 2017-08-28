@@ -1,12 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {fetchAllFriends, deleteFriend, updateFriend}
+import {fetchAllFriends, deleteFriend, updateFriend, searchFriend}
   from '../../actions/friend_actions';
-import {selectFriends} from '../../reducers/selectors';
+import {selectFriends, selectUsers} from '../../reducers/selectors';
 
 const mapStateToProps = (state) => {
+  debugger;
   return ({
-    friends : selectFriends(state.friend.friends)
+    friends : selectFriends(state.friend.friends),
+    users : selectUsers(state.user.user)
 });
 };
 
@@ -14,14 +16,19 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   updateFriend:(friend) => dispatch(updateFriend(friend)),
   unFriend:(id) => dispatch(deleteFriend(id)),
-  receiveAllFriends: () => dispatch(fetchAllFriends())
+  receiveAllFriends: () => dispatch(fetchAllFriends()),
+  searchFriend: (keyword) => dispatch(searchFriend(keyword))
 });
 
 class friendIndexPage extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      username: ""
+    };
     this.renderfriends = this.renderfriends.bind(this);
     this.rendersearch = this.rendersearch.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   componentDidMount() {
@@ -43,8 +50,11 @@ class friendIndexPage extends React.Component {
     this.props.updateFriend(friend);
   }
 
-  handleSearch() {
-    
+  handleSearch(e) {
+    e.preventDefault();
+    const keyword = Object.assign({}, this.state);
+    this.props.searchFriend(keyword);
+
   }
 
   renderfriends() {
@@ -76,14 +86,30 @@ class friendIndexPage extends React.Component {
 
   }
 
+  update(property) {
+    return e => this.setState({
+      [property]: e.currentTarget.value
+    });
+  }
+
   rendersearch() {
     if (this.props.friends.length !== 0) {
     return (
       <div>
         <form onSubmit={this.handleSearch}>
-        <input type='text' placeholder='Input a Username and Press Search'/>
-        <button >Search</button>
+          <input type='text' placeholder='Input a Username and Press Search'
+            value={this.state.username}
+            onChange={this.update('username')}
+            />
+          <button >Search</button>
         </form>
+        <ul className="searchresult">
+          {this.props.users.map((user, idx) => (
+            <li key={idx}>
+              {user}
+            </li>
+          ))}
+        </ul>
         <ul className="pendingFreinds">
           {this.props.friends[2].pendingFreinds.map((friend, idx) => (
             <li key={idx}>

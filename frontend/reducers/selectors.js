@@ -10,6 +10,16 @@ export const selectDreams = (data) => {
   }
 };
 
+export const selectUsers = (data) => {
+  if (data) {
+    const users = [];
+    data.ord.forEach((id) => users.push(values(data.index[id])));
+    return users;
+  } else {
+    return [];
+  }
+};
+
 
 export const selectFriends = (data) => {
   if (data.applier) {
