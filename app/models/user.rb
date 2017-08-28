@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :integer          not null, primary key
+#  username        :string           not null
+#  email           :string           not null
+#  password_digest :string           not null
+#  session_token   :string           not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+
 class User < ApplicationRecord
   validates :username, :session_token, presence: true, uniqueness: true
   validates :password, length: { minimum: 6, allow_nil: true }
@@ -13,6 +26,11 @@ class User < ApplicationRecord
   has_many(
     :friends,
     foreign_key: :apply_user_id
+  )
+
+  has_many(
+    :comments,
+    foreign_key: :commenter_id,
   )
 
   has_many(
