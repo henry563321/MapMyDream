@@ -65,20 +65,26 @@ class friendIndexPage extends React.Component {
     if (this.props.friends.length !== 0) {
     return (
       <div>
-      <ul className="friends">
+        <span className='searchtitle'>Friends</span>
+      <ul className="searchresultlist">
+
         {this.props.friends[0].friends.map((friend, idx) => (
-          <li key={idx}>
-            {friend}
-            <button onClick={this.handleUnfriend.bind(this, friend)}>unFriend</button>
+          <li className='searchresultitem' key={idx}>
+            <a className='usericon'/>
+            {friend[1]}
+            <button className='addfriendbut' onClick={this.handleUnfriend.bind(this, friend)}>unFriend</button>
           </li>
         ))}
       </ul>
-      <ul className="applier">
+      <span className='searchtitle'>Friends Request</span>
+      <ul className="searchresultlist">
+
         {this.props.friends[1].applier.map((friend, idx) => (
-          <li key={idx}>
-            {friend}
-            <button onClick={this.handleAccept.bind(this, friend)}>Accept</button>
-            <button onClick={this.handleDenied.bind(this, friend)}>Deny</button>
+          <li className='searchresultitem' key={idx}>
+            <a className='usericon'/>
+            {friend[1]}
+            <button className='addfriendbut' onClick={this.handleDenied.bind(this, friend)}>Deny</button>
+            <button className='addfriendbut accept' onClick={this.handleAccept.bind(this, friend)}>Accept</button>
           </li>
         ))}
       </ul>
@@ -109,25 +115,31 @@ class friendIndexPage extends React.Component {
     if (this.props.friends.length !== 0) {
     return (
       <div>
+        <span className='searchtitle'>FIND FRIEND BY SEARCH WITH USERNAME</span>
         <form onSubmit={this.handleSearch}>
-          <input type='text' placeholder='Input a Username and Press Search'
+          <input type='text'
             value={this.state.username}
             onChange={this.update('username')}
+            className='searchbox'
             />
-          <button >Search</button>
+          <button className='friendsearchbut'>Search</button>
         </form>
-        <ul className="searchresult">
+        <ul className="searchresultlist">
           {this.props.users.map((user, idx) => (
-            <li key={idx}>
-              {user}
-              <button onClick={this.addFriend.bind(this, user)}>ADD</button>
+            <li className='searchresultitem'key={idx}>
+              <a className='usericon'/>
+              {user[1]}
+              <button className='addfriendbut' onClick={this.addFriend.bind(this, user)}>ADD</button>
             </li>
           ))}
         </ul>
-        <ul className="pendingFreinds">
+        <ul className="searchresultlist">
           {this.props.friends[2].pendingFreinds.map((friend, idx) => (
-            <li key={idx}>
-              {friend}
+            <li className='searchresultitem'key={idx}>
+              <a className='usericon'/>
+              {friend[1]}
+              <span>{friend[2]}</span>
+              <button className='addfriendbut' onClick={this.handleUnfriend.bind(this, friend)}>CANCEL</button>
             </li>
           ))}
         </ul>
@@ -141,17 +153,18 @@ class friendIndexPage extends React.Component {
 
   render() {
     return (
-        <div>
+        <div className='friendsmain'>
           <h1>MY FRIENDS</h1>
-          <Tabs defaultTab="one" >
+          <Tabs >
             <TabList>
-               <Tab tabFor="one">MY FRIENDS</Tab>
-               <Tab tabFor="two">FIND FRIENDS</Tab>
+               <Tab tabFor="one"className='tabs'>MY FRIENDS</Tab>
+               <Tab tabFor="two"className='tabs'>FIND FRIENDS</Tab>
+               <Tab tabFor="three"className='tabs'>INVITE FRIENDS</Tab>
              </TabList>
-             <TabPanel tabId="one">
+             <TabPanel tabId="one" >
                {this.renderfriends()}
              </TabPanel>
-             <TabPanel tabId="two">
+             <TabPanel tabId="two" >
                  {this.rendersearch()}
              </TabPanel>
           </Tabs>
