@@ -20,13 +20,25 @@ class homePage extends React.Component {
     this.props.receiveAllDream();
   }
 
+  calculateDistance(dream) {
+    const poly = google.maps.geometry.encoding.decodePath(dream[3]);
+    const length = google.maps.geometry.spherical.computeLength(poly);
+    return (
+      <div>
+        {length}
+      </div>
+    );
+  }
+
   renderDreams() {
     return(
       <div>
+
       <ul className="dreams">
         {this.props.dreams.map((dream, idx) => (
           <li key={idx}>
-            {dream}
+            <img src={`https://maps.googleapis.com/maps/api/staticmap?size=100x100&path=weight:3%7Cenc:${dream[3]}&key=AIzaSyCcRlcfpJoSPP31a-a5UfOgNGzyEtcT09M`}></img>
+            {this.calculateDistance(dream)}
           </li>
         ))}
       </ul>
@@ -37,6 +49,7 @@ class homePage extends React.Component {
   render() {
     return (
       <ul>
+
         {this.renderDreams()}
       </ul>
 

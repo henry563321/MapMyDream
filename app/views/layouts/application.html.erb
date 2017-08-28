@@ -2,7 +2,8 @@
 <html>
   <head>
     <title>MapMyDream</title >
-    <%= javascript_include_tag                  "https://maps.googleapis.com/maps/api/js?key=AIzaSyCcRlcfpJoSPP31a-a5UfOgNGzyEtcT09M&libraries=geometry&libraries=places" %>
+    <!-- <%#= javascript_include_tag                  "https://maps.googleapis.com/maps/api/js?key=AIzaSyCcRlcfpJoSPP31a-a5UfOgNGzyEtcT09M&libraries=geometry&libraries=places" %> -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcRlcfpJoSPP31a-a5UfOgNGzyEtcT09M&libraries=geometry,places" charset="utf-8"></script>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>

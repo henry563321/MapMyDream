@@ -125,6 +125,7 @@ class dreamMap extends React.Component {
       this.state.start_date + " " + this.state.start_time);
     const endTime = new Date(
       this.state.end_date + " " + this.state.end_time);
+    debugger;
     const encodeString =
       google.maps.geometry.encoding.encodePath(this.state.poly.getPath());
     const dream = {
@@ -132,7 +133,6 @@ class dreamMap extends React.Component {
       end_time: endTime,
       route: encodeString
     };
-    debugger;
     this.props.addRoute(dream).then(() => this.props.history.push('/home'));
   }
 
