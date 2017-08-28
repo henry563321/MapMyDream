@@ -13,6 +13,14 @@ class Api::FriendsController < ApplicationController
     end
   end
 
+  def update
+    @friend = Friend.find(params[:friend][:id])
+    if @friend.update_attributes(status: params[:friend][:status])
+    else
+      render json: @friend.errors.full_messages, status: 422
+    end
+  end
+
   def destroy
     @friend = Friend.find(params[:id])
     if @friend.destroy

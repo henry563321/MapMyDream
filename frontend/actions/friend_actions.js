@@ -16,3 +16,8 @@ export const deleteFriend = (id) => dispatch => (
   APIUtil.deleteFriend(id)
   .then(friends => dispatch(receiveAllFriends(friends)))
 );
+
+export const updateFriend = (friend) => dispatch => (
+  APIUtil.updateFriend(friend)
+  .then(friends => dispatch(receiveAllFriends(friends)))
+);

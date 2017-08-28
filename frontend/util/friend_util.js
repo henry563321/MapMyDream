@@ -18,11 +18,12 @@ export const deleteFriend = (id) => {
 };
 
 export const updateFriend = (data) => {
+  const friend = {id: data[0], status: data[2]};
   return(
     $.ajax({
-      method: 'DELETE',
-      url: `api/friends/${data.id}`,
-      data: {data}
+      method: 'PATCH',
+      url: `api/friends/${friend.id}`,
+      data: {friend}
     })
   );
 };

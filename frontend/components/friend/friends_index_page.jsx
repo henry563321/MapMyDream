@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {fetchAllFriends, deleteFriend} from '../../actions/friend_actions';
+import {fetchAllFriends, deleteFriend, updateFriend}
+  from '../../actions/friend_actions';
 import {selectFriends} from '../../reducers/selectors';
 
 const mapStateToProps = (state) => {
@@ -11,6 +12,7 @@ const mapStateToProps = (state) => {
 
 
 const mapDispatchToProps = (dispatch) => ({
+  updateFriend:(friend) => dispatch(updateFriend(friend)),
   unFriend:(id) => dispatch(deleteFriend(id)),
   receiveAllFriends: () => dispatch(fetchAllFriends())
 });
@@ -23,13 +25,26 @@ class friendIndexPage extends React.Component {
   }
 
   componentDidMount() {
-    debugger;
     this.props.receiveAllFriends();
   }
 
 
   handleUnfriend(friend) {
     this.props.unFriend(friend[0]).then(() => this.props.receiveAllFriends());
+  }
+
+  handleAccept(friend) {
+    friend[2] = 'APPROVED';
+    this.props.updateFriend(friend);
+  }
+
+  handleDenied(friend) {
+    friend[2] = 'DENIED';
+    this.props.updateFriend(friend);
+  }
+
+  handleSearch() {
+    
   }
 
   renderfriends() {
@@ -64,14 +79,19 @@ class friendIndexPage extends React.Component {
   rendersearch() {
     if (this.props.friends.length !== 0) {
     return (
-      <ul className="pendingFreinds">
-        {this.props.friends[2].pendingFreinds.map((friend, idx) => (
-          <li key={idx}>
-            {friend}
-          </li>
-        ))}
-      </ul>
-
+      <div>
+        <form onSubmit={this.handleSearch}>
+        <input type='text' placeholder='Input a Username and Press Search'/>
+        <button >Search</button>
+        </form>
+        <ul className="pendingFreinds">
+          {this.props.friends[2].pendingFreinds.map((friend, idx) => (
+            <li key={idx}>
+              {friend}
+            </li>
+          ))}
+        </ul>
+      </div>
     );
   } else {
     return null;
