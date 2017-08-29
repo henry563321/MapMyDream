@@ -92,7 +92,7 @@ class dreamMap extends React.Component {
     path.push(event.latLng);
     var dist = google
       .maps.geometry.spherical.computeLength(this.state.poly.getPath());
-    this.setState({distance: (dist/1000).toFixed(1)});
+    this.setState({distance: (dist*0.00621).toFixed(2)});
   }
 
   renderErrors() {
@@ -125,7 +125,6 @@ class dreamMap extends React.Component {
       this.state.start_date + " " + this.state.start_time);
     const endTime = new Date(
       this.state.end_date + " " + this.state.end_time);
-    debugger;
     const encodeString =
       google.maps.geometry.encoding.encodePath(this.state.poly.getPath());
     const dream = {
@@ -148,7 +147,7 @@ class dreamMap extends React.Component {
           {this.renderErrors()}
           <button className="createbut deletedream"
             onClick={this.removeLine}>Remove Dream</button>
-          <span className='titledistance'>Distance: {this.state.distance}Km</span>
+          <span className='titledistance'>Distance: {this.state.distance}Mile</span>
           <form onSubmit={this.handleSubmit}>
             <h5>StartTime:</h5>
             <h5>Time:</h5>

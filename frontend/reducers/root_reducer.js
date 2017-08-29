@@ -5,11 +5,18 @@ import friendReducers from './friend_reducer';
 import userReducers from './user_reducer';
 
 
-const rootReducer = combineReducers({
+const appReducer = combineReducers({
   session: sessionReducers,
   dream: dreamReducers,
   friend: friendReducers,
   user: userReducers
 });
+
+const rootReducer = (state, action) => {
+  if (action.type === 'USER_LOGOUT') {
+    state = undefined;
+  }
+  return appReducer(state, action);
+};
 
 export default rootReducer;

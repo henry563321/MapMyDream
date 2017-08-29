@@ -15,17 +15,30 @@ class NavList extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.homelink = this.homelink.bind(this);
   }
 
   handleClick() {
-    this.props.logout().then(() => this.props.history.push('/login'));
+    this.props.logout().then(() => this.props.history.push('/'));
+  }
+
+  homelink() {
+    if (this.props.currentUser) {
+      return(
+        <Link to='/home'className="headword">MapMyDream</Link>
+      );
+    } else {
+      return (
+        <Link to='/'className="headword">MapMyDream</Link>
+      );
+    }
   }
 
   navLinks() {
     return(
       <div className='navlinks'>
-      <Link to='/'className="headword">MapMyDream</Link>
-      <Link className='createroutelink' to="/dream/create" >CreateDream</Link>
+        {this.homelink()}
+        <Link className='createroutelink' to="/dream/create" >CreateDream</Link>
       </div>
     );
   }

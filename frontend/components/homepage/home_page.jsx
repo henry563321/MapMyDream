@@ -3,11 +3,13 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {selectDreams} from '../../reducers/selectors';
 import {fetchAllDream} from '../../actions/route_actions';
+import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
 
 const mapStateToProps = (state) => {
   return ({
   dreams: selectDreams(state.dream.dream),
-  loggedIn: Boolean(state.session.currentUser)
+  loggedIn: Boolean(state.session.currentUser),
+  username: state.session.currentUser.username
 });
 };
 
@@ -22,11 +24,11 @@ class homePage extends React.Component {
 
   calculateDistance(dream) {
     const poly = google.maps.geometry.encoding.decodePath(dream[3]);
-    const length = google.maps.geometry.spherical.computeLength(poly);
+    const length = (google.maps.geometry.spherical.computeLength(poly)*0.000621).toFixed(2);
     return (
-      <div>
+      <h3>
         {length}
-      </div>
+      </h3>
     );
   }
 
@@ -36,9 +38,22 @@ class homePage extends React.Component {
 
       <ul className="dreams">
         {this.props.dreams.map((dream, idx) => (
-          <li key={idx}>
-            <img src={`https://maps.googleapis.com/maps/api/staticmap?size=100x100&path=weight:3%7Cenc:${dream[3]}&key=AIzaSyCcRlcfpJoSPP31a-a5UfOgNGzyEtcT09M`}></img>
-            {this.calculateDistance(dream)}
+          <li className='dreamItem' key={idx}>
+            <a className='usericon'/>
+            <div className = 'dreamdetail'>
+              <h3 className="dreamtitle">{this.props.username} create the dream!</h3>
+              <div className= 'dreamdeepdetail'>
+              <img className='staticimg' src={`https://maps.googleapis.com/maps/api/staticmap?size=200x200&path=weight:3%7Cenc:${dream[3]}&key=AIzaSyCcRlcfpJoSPP31a-a5UfOgNGzyEtcT09M`}></img>
+              <div className= 'distancedetail'>
+                <a className='distanceIcon'/>
+                <div className='displaydistance'>
+                {this.calculateDistance(dream)}
+                <span className='unit'>mi</span>
+                </div>
+              </div>
+              </div>
+              <span>create the comment</span>
+            </div>
           </li>
         ))}
       </ul>
@@ -48,11 +63,18 @@ class homePage extends React.Component {
 
   render() {
     return (
-      <ul>
-
-        {this.renderDreams()}
-      </ul>
-
+      <div className='friendsmain'>
+        <Tabs >
+          <TabList>
+            <Tab tabFor="one"className='tabs'>MY ACTICITIES</Tab>
+            <Tab tabFor="two"className='tabs'>MY DASHBOARD</Tab>
+            <Tab tabFor="two"className='tabs'>7/24</Tab>
+           </TabList>
+           <TabPanel tabId="one" >
+             {this.renderDreams()}
+           </TabPanel>
+        </Tabs>
+      </div>
     );
     }
   }

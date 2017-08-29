@@ -35,5 +35,4 @@ export const addNewDream = dream => dispatch => (
 export const fetchAllDream = () => dispatch => (
   APIUtil.getDream()
   .then(dreams => dispatch(receiveAllDream(dreams)))
-
 );

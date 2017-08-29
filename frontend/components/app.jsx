@@ -15,7 +15,7 @@ const App = () => (
       <NavContainer />
     </header>
     <Route exact path='/' component={FrontPageContainer}/>
-    <Route exact path='/home' component={HomePageContainer}/>
+    <BackRoute exact path='/home' component={HomePageContainer}/>
     <BackRoute path='/dream/create' component={MapContainer}/>
     <BackRoute path='/home/friends' component={FriendsContainer}/>
     <AuthRoute path='/login' component={SessionFormContainer}/>
