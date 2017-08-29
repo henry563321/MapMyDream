@@ -11,7 +11,7 @@ const mapStateToProps = (state) => {
   return ({
     friends : selectFriends(state.friend.friends),
     users : selectUsers(
-      state.user.user, state.friend.friends, state.session.currentUser),
+      state.user.users, state.friend.friends, state.session.currentUser),
     currentUser: state.session.currentUser
 });
 };

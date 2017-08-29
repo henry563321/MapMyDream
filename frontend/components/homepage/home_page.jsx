@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {selectDreams, selectComments} from '../../reducers/selectors';
 import {fetchAllDream} from '../../actions/route_actions';
 import {postComment, fetchAllComments} from '../../actions/comment_actions';
+import {fetchUser} from '../../actions/user_actions';
 import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
 import {withRouter} from 'react-router-dom';
 
@@ -32,7 +33,6 @@ class homePage extends React.Component {
   }
 
   componentDidMount() {
-    debugger;
     this.props.receiveAllComments();
     if (this.props.match.params.id) {
       this.props.receiveAllDream(this.props.match.params.id);
@@ -88,21 +88,23 @@ class homePage extends React.Component {
                 </div>
               </div>
               </div>
-              <form onSubmit={this.handleSubmit.bind(this, dream)}>
                 <ul>
                   {selectComments(this.props.comments, dream[4]).map((comment) => (
-                    <li >
-                      {comment}
-                    </li>
+                    <div className='commentbox'>
+                    <a className='usericon'/>
+                    <Link to={`/users/${comment[3]}`}>{comment[3]}</Link>
+                    <li>{comment[1]}</li>
+                    </div>
                   ))}
                 </ul>
-                <span>create the comment</span>
-                <input type='text'
-                  value={this.state.comment}
-                  onChange={this.update('comment')}
-                  placeholder='write a comment...'
-                  />
-                <button>POST</button>
+                <form className='commentform' onSubmit={this.handleSubmit.bind(this, dream)}>
+                  <a className='usericon'/>
+                  <input type='text'
+                    value={this.state.comment}
+                    onChange={this.update('comment')}
+                    placeholder='write a comment...'
+                    />
+                  <button>POST</button>
               </form>
 
             </div>
