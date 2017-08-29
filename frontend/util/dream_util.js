@@ -16,11 +16,12 @@ export const showDream = (id) => {
   );
 };
 
-export const getDream = () => {
+export const getDream = (id) => {
   return(
     $.ajax({
       method: 'GET',
       url: 'api/routes',
+      data: {id}
     })
   );
 };

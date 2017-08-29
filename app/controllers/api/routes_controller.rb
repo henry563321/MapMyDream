@@ -1,6 +1,7 @@
 class Api::RoutesController < ApplicationController
   def index
-    @routes = current_user.routes.all
+    user = User.find_by(username: params[:id])
+    @routes = user.routes.all
     render "api/routes/index"
   end
 

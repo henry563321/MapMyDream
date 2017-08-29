@@ -4,22 +4,35 @@ import {connect} from 'react-redux';
 import {selectDreams} from '../../reducers/selectors';
 import {fetchAllDream} from '../../actions/route_actions';
 import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
+import {withRouter} from 'react-router-dom';
 
 const mapStateToProps = (state) => {
   return ({
   dreams: selectDreams(state.dream.dream),
   loggedIn: Boolean(state.session.currentUser),
-  username: state.session.currentUser.username
+  currentId: state.session.currentUser.username
 });
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  receiveAllDream: () => dispatch(fetchAllDream())
+  receiveAllDream: (id) => dispatch(fetchAllDream(id))
 });
 
 class homePage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      comment: ""
+    };
+  }
+
   componentDidMount() {
-    this.props.receiveAllDream();
+    if (this.props.match.params.id) {
+      this.props.receiveAllDream(this.props.match.params.id);
+    }
+    else {
+      this.props.receiveAllDream(this.props.currentId);
+    }
   }
 
   calculateDistance(dream) {
@@ -30,6 +43,12 @@ class homePage extends React.Component {
         {length}
       </h3>
     );
+  }
+
+  update(property) {
+    return e => this.setState({
+      [property]: e.currentTarget.value
+    });
   }
 
   renderDreams() {
@@ -43,7 +62,7 @@ class homePage extends React.Component {
             <div className = 'dreamdetail'>
               <h3 className="dreamtitle">{this.props.username} create the dream!</h3>
               <div className= 'dreamdeepdetail'>
-              <img className='staticimg' src={`https://maps.googleapis.com/maps/api/staticmap?size=200x200&path=weight:3%7Cenc:${dream[3]}&key=AIzaSyCcRlcfpJoSPP31a-a5UfOgNGzyEtcT09M`}></img>
+              <img className='staticimg' src={`https://maps.googleapis.com/maps/api/staticmap?size=300x300&path=weight:3%7Cenc:${dream[3]}&key=AIzaSyCcRlcfpJoSPP31a-a5UfOgNGzyEtcT09M`}></img>
               <div className= 'distancedetail'>
                 <a className='distanceIcon'/>
                 <div className='displaydistance'>
@@ -52,7 +71,15 @@ class homePage extends React.Component {
                 </div>
               </div>
               </div>
-              <span>create the comment</span>
+              <form>
+                <span>create the comment</span>
+                <input type='text'
+                  value={this.sta}
+                  onChange={this.update('comment')}
+                  placeholder='write a comment...'
+                  />
+              </form>
+
             </div>
           </li>
         ))}
@@ -79,4 +106,4 @@ class homePage extends React.Component {
     }
   }
 
-export default connect(mapStateToProps, mapDispatchToProps)(homePage);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(homePage));

@@ -32,7 +32,7 @@ export const addNewDream = dream => dispatch => (
     errors => dispatch(receiveDreamErrors(errors.responseJSON))
   )
 );
-export const fetchAllDream = () => dispatch => (
-  APIUtil.getDream()
+export const fetchAllDream = (id) => dispatch => (
+  APIUtil.getDream(id)
   .then(dreams => dispatch(receiveAllDream(dreams)))
 );

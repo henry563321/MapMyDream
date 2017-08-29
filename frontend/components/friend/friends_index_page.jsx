@@ -5,6 +5,7 @@ import {fetchAllFriends, deleteFriend, updateFriend, searchFriend, addFriend}
 import {selectFriends, selectUsers} from '../../reducers/selectors';
 import {withRouter} from 'react-router-dom';
 import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
+import {Link} from 'react-router-dom';
 
 const mapStateToProps = (state) => {
   return ({
@@ -71,7 +72,7 @@ class friendIndexPage extends React.Component {
         {this.props.friends[0].friends.map((friend, idx) => (
           <li className='searchresultitem' key={idx}>
             <a className='usericon'/>
-            {friend[1]}
+            <Link to={`/users/${friend[1]}`}>{friend[1]}</Link>
             <button className='addfriendbut' onClick={this.handleUnfriend.bind(this, friend)}>unFriend</button>
           </li>
         ))}
@@ -82,7 +83,7 @@ class friendIndexPage extends React.Component {
         {this.props.friends[1].applier.map((friend, idx) => (
           <li className='searchresultitem' key={idx}>
             <a className='usericon'/>
-            {friend[1]}
+            <Link to={`/users/${friend[1]}`}>{friend[1]}</Link>
             <button className='addfriendbut' onClick={this.handleDenied.bind(this, friend)}>Deny</button>
             <button className='addfriendbut accept' onClick={this.handleAccept.bind(this, friend)}>Accept</button>
           </li>
@@ -128,7 +129,7 @@ class friendIndexPage extends React.Component {
           {this.props.users.map((user, idx) => (
             <li className='searchresultitem'key={idx}>
               <a className='usericon'/>
-              {user[1]}
+              <Link to={`/users/${user[1]}`}>{user[1]}</Link>
               <button className='addfriendbut' onClick={this.addFriend.bind(this, user)}>ADD</button>
             </li>
           ))}
@@ -137,7 +138,7 @@ class friendIndexPage extends React.Component {
           {this.props.friends[2].pendingFreinds.map((friend, idx) => (
             <li className='searchresultitem'key={idx}>
               <a className='usericon'/>
-              {friend[1]}
+              <Link to={`/users/${friend[1]}`}>{friend[1]}</Link>
               <span>{friend[2]}</span>
               <button className='addfriendbut' onClick={this.handleUnfriend.bind(this, friend)}>CANCEL</button>
             </li>
@@ -175,4 +176,4 @@ class friendIndexPage extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(friendIndexPage);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(friendIndexPage));

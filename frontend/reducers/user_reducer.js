@@ -7,7 +7,7 @@ const nullUser = Object.freeze({
 
 
 
-const dreamReducer = (state = nullUser, action) => {
+const userReducer = (state = nullUser, action) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_MATCH_USERS:
@@ -18,4 +18,4 @@ const dreamReducer = (state = nullUser, action) => {
   }
 };
 
-export default dreamReducer;
+export default userReducer;
