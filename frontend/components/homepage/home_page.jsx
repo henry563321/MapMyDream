@@ -1,8 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {selectDreams} from '../../reducers/selectors';
+import {selectDreams, selectComments} from '../../reducers/selectors';
 import {fetchAllDream} from '../../actions/route_actions';
+import {postComment, fetchAllComments} from '../../actions/comment_actions';
 import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
 import {withRouter} from 'react-router-dom';
 
@@ -10,12 +11,16 @@ const mapStateToProps = (state) => {
   return ({
   dreams: selectDreams(state.dream.dream),
   loggedIn: Boolean(state.session.currentUser),
-  currentId: state.session.currentUser.username
+  currentId: state.session.currentUser.username,
+  currentUserId: state.session.currentUser.id,
+  comments: state.comment.comment,
 });
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  receiveAllDream: (id) => dispatch(fetchAllDream(id))
+  receiveAllDream: (id) => dispatch(fetchAllDream(id)),
+  postComment: (comment) => dispatch(postComment(comment)),
+  receiveAllComments: () => dispatch(fetchAllComments())
 });
 
 class homePage extends React.Component {
@@ -27,6 +32,8 @@ class homePage extends React.Component {
   }
 
   componentDidMount() {
+    debugger;
+    this.props.receiveAllComments();
     if (this.props.match.params.id) {
       this.props.receiveAllDream(this.props.match.params.id);
     }
@@ -51,6 +58,16 @@ class homePage extends React.Component {
     });
   }
 
+  handleSubmit(dream) {
+    const commenterId = this.props.currentUserId;
+    const comment = {
+      body: this.state.comment,
+      commenter_id: commenterId,
+      route_id: dream[4]
+    };
+    this.props.postComment(comment);
+  }
+
   renderDreams() {
     return(
       <div>
@@ -60,7 +77,7 @@ class homePage extends React.Component {
           <li className='dreamItem' key={idx}>
             <a className='usericon'/>
             <div className = 'dreamdetail'>
-              <h3 className="dreamtitle">{this.props.username} create the dream!</h3>
+              <h3 className="dreamtitle">{this.props.currentId} create the dream!</h3>
               <div className= 'dreamdeepdetail'>
               <img className='staticimg' src={`https://maps.googleapis.com/maps/api/staticmap?size=300x300&path=weight:3%7Cenc:${dream[3]}&key=AIzaSyCcRlcfpJoSPP31a-a5UfOgNGzyEtcT09M`}></img>
               <div className= 'distancedetail'>
@@ -71,13 +88,21 @@ class homePage extends React.Component {
                 </div>
               </div>
               </div>
-              <form>
+              <form onSubmit={this.handleSubmit.bind(this, dream)}>
+                <ul>
+                  {selectComments(this.props.comments, dream[4]).map((comment) => (
+                    <li >
+                      {comment}
+                    </li>
+                  ))}
+                </ul>
                 <span>create the comment</span>
                 <input type='text'
-                  value={this.sta}
+                  value={this.state.comment}
                   onChange={this.update('comment')}
                   placeholder='write a comment...'
                   />
+                <button>POST</button>
               </form>
 
             </div>

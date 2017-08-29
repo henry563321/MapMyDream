@@ -8,7 +8,13 @@ export const receiveAllComments = (comments) => ({
   comments
 });
 
-export const receiveSingleComments = (comment) => ({
-  type: RECEIVE_SINGLE_COMMENT,
-  comment
-});
+
+export const postComment = (post) => dispatch => (
+  APIUtil.createComment(post)
+  .then(comments => dispatch(receiveAllComments(comments)))
+);
+
+export const fetchAllComments = () => dispatch => (
+  APIUtil.getComments()
+  .then(comments => dispatch(receiveAllComments(comments)))
+);

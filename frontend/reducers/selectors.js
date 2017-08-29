@@ -28,6 +28,20 @@ export const selectUsers = (data, friends, currentUser) => {
   }
 };
 
+export const selectComments = (data, routeId) => {
+  if (data) {
+    const comments = [];
+    data.ord.forEach((id) => {
+      if(data.index[id].route_id === routeId) {
+        comments.push(values(data.index[id]));
+      }
+    });
+    return comments;
+  } else {
+    return [];
+  }
+};
+
 
 export const selectFriends = (data) => {
   if (data.applier) {

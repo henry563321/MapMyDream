@@ -1,8 +1,13 @@
 class Api::CommentsController < ApplicationController
+  def index
+    @comments = Comment.all
+    render "api/comments/index"
+  end
 
   def create
-    @comment = Friend.new(comments_params)
-    if @comment.save
+    comment = Comment.new(comments_params)
+    if comment.save
+      @comments = Comment.all
       render "api/comments/index"
     else
       render json: @comment.errors.full_messages, status: 422

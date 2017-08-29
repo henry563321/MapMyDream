@@ -11,10 +11,8 @@ const nullcomment = Object.freeze({
 const commentReducer = (state = nullcomment, action) => {
   Object.freeze(state);
   switch (action.type) {
-    case RECEIVE_SINGLE_COMMENT:
-      return merge({}, state, {comment: action.comment});
     case RECEIVE_ALL_COMMENTS:
-      return merge({}, nullcomment, {comment: action.comment});
+      return merge({}, nullcomment, {comment: action.comments});
     default:
       return state;
 
