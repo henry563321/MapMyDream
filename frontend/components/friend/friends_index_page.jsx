@@ -117,7 +117,7 @@ class friendIndexPage extends React.Component {
     return (
       <div>
         <span className='searchtitle'>FIND FRIEND BY SEARCH WITH USERNAME</span>
-        <form onSubmit={this.handleSearch}>
+        <form onSubmit={this.handleSearch} className='searchform'>
           <input type='text'
             value={this.state.username}
             onChange={this.update('username')}

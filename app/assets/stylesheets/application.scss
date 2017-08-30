@@ -58,6 +58,7 @@ body {
 
 .signinput {
   width: 100%;
+  font-size: 20px;
   height: 50px;
   margin-bottom: 20px;
 }
@@ -350,6 +351,7 @@ h1 {
 .searchbox {
   width: 60%;
   height: 40px;
+  font-size: 20px;
 }
 
 .friendsearchbut {
@@ -386,6 +388,11 @@ h1 {
   display: flex;
   width: 75%;
   flex-wrap: wrap;
+}
+
+.searchform {
+  display: flex;
+  align-items: flex-end;
 }
 
 .usericon {
