@@ -8,7 +8,6 @@ import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
 import {Link} from 'react-router-dom';
 
 const mapStateToProps = (state) => {
-  debugger;
   return ({
     friends : selectFriends(state.friend.friends),
     users : selectUsers(
