@@ -1,3 +1,135 @@
 // Place all the styles related to the api/comments controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.commenthide {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  top: 100%;
+  left: 0%;
+  width: 100%;
+  transform: translateY(-1em);
+  transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 1s linear 0.01s;
+}
+
+.commentlist {
+    padding: 0;
+}
+
+.commentbody {
+  visibility: visible;
+  /* shows sub-menu */
+  display: block;
+  opacity: 0.85;
+  transform: translateY(0%);
+  background: white;
+}
+
+.commentbox {
+  display: flex;
+  padding-bottom: 10px;
+}
+
+.commentform {
+  display: flex;
+}
+
+.iconcomment {
+  display: flex;
+  position: relative;
+  align-items: baseline;
+  background-image: image-url('newicon.png');
+  background-position:center;
+  background-size:cover;
+  background-color: inherit;
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+  border: 0;
+  cursor: pointer;
+  margin: 10px 10px 10px 30px;
+}
+
+.commenticon {
+  position: relative;
+  align-items: baseline;
+  background-image: image-url('icon.jpg');
+  background-position:center;
+  background-size:cover;
+  background-color: white;
+  margin-right: 10px;
+  width: 40px;
+  height: 40px;
+}
+
+.commenter {
+  font-weight: 700;
+  float: left;
+  color: #2f98d9;
+  text-decoration: none;
+}
+
+.deletebut {
+  float:right;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: "Open Sans", sans-serif;
+  cursor: pointer;
+  color: #2f98d9;
+  box-shadow: none;
+  background: none;
+  margin: 0;
+  border: 0;
+}
+
+.commentitem {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.commentinput {
+  width: 80%;
+  user-select: text;
+  cursor: auto;
+  font-family: "Open Sans", sans-serif;
+  background-color: #ffffff;
+  border: 1px solid #c3c2c2;
+  transition: border linear .2s, box-shadow linear .2s;
+  min-width: 40px;
+  display: inline-block;
+  padding: 0 6px;
+  font-size: 14px;
+  line-height: 16px;
+  height: 30px;
+  margin: 5px 0 5px 0;
+  width: 80%;
+  color: #555555;
+  border-radius: 4px;
+}
+
+#topitem {
+  width: 100%;
+}
+
+p {
+    color: #666666;
+    line-height: 21px;
+    margin: 0 0 5px 0;
+}
+
+.postbut {
+  background: #ffffff;
+  border-radius: 5px;
+  box-shadow: none;
+  text-shadow: 0 3px 3px #fff;
+  border: solid 1px #2f98d9;
+  color: #2f98d9;
+  padding: 7px;
+  text-transform: uppercase;
+  margin: 5px 7px 5px 15px;
+  position: relative;
+  right: 0;
+  top: 0;
+}

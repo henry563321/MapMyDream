@@ -11,7 +11,7 @@ export const selectDreams = (data) => {
 };
 
 export const selectUsers = (data, friends, currentUser) => {
-  if (data.length !== 0) {
+  if (data.index) {
     const users = [];
     const alreadyFriends = [];
     friends.applier.forEach((applier) => alreadyFriends.push(applier.name));
@@ -70,6 +70,7 @@ export const selectFriends = (data) => {
     value.push({friends: friends});
     value.push({applier: applier});
     value.push({pendingFreinds: pendingFreinds});
+
     return value;
   }
   else {

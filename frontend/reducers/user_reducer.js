@@ -8,7 +8,7 @@ const nullUser = Object.freeze({
 
 
 
-const userReducer = (state = nullUser, action) => {
+const friendReducer = (state = nullUser, action) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_MATCH_USERS:
@@ -21,4 +21,4 @@ const userReducer = (state = nullUser, action) => {
   }
 };
 
-export default userReducer;
+export default friendReducer;

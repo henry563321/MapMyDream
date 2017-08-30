@@ -18,3 +18,8 @@ export const fetchAllComments = () => dispatch => (
   APIUtil.getComments()
   .then(comments => dispatch(receiveAllComments(comments)))
 );
+
+export const removeComment = (id) => dispatch => (
+  APIUtil.deleteComment(id)
+  .then(comments => dispatch(receiveAllComments(comments)))
+);

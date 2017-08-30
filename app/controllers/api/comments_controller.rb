@@ -15,8 +15,9 @@ class Api::CommentsController < ApplicationController
   end
 
   def destroy
-    @comment = Friend.find(params[:id])
+    @comment = Comment.find(params[:id])
     if @comment.destroy
+      @comments = Comment.all
       render "api/comments/index"
     else
       render json: @comment.errors.full_messages, status: 422
