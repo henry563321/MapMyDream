@@ -60,7 +60,7 @@ export default class DreamItem extends React.Component {
     <li className='dreamItem' >
       <a className='usericon'/>
       <div className = 'dreamdetail'>
-        <h3 className="dreamtitle">{this.props.currentId} create the dream!</h3>
+        <h3 className="dreamtitle">{this.props.dream[5]} create the dream!</h3>
         <div className= 'dreamdeepdetail'>
         <img className='staticimg' src={`https://maps.googleapis.com/maps/api/staticmap?size=400x300&path=weight:3%7Cenc:${this.props.dream[3]}&key=AIzaSyCcRlcfpJoSPP31a-a5UfOgNGzyEtcT09M`}></img>
         <div className= 'distancedetail'>

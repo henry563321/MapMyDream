@@ -52,7 +52,7 @@ class dreamMap extends React.Component {
     searchBox.addListener('places_changed', () => {
          var places = searchBox.getPlaces();
 
-         if (places.length == 0) {
+         if (places.length === 0) {
            return;
          }
          var bounds = new google.maps.LatLngBounds();

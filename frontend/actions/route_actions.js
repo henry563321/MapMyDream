@@ -2,6 +2,7 @@ import * as APIUtil from '../util/dream_util';
 
 export const RECEIVE_SINGLE_DREAM = 'RECEIVE_SINGLE_DREAM';
 export const RECEIVE_ALL_DREAM = 'RECEIVE_ALL_DREAM';
+export const RECEIVE_DREAMS = 'RECEIVE_DREAMS';
 export const RECEIVE_DREAM_ERRORS= 'RECEIVE_DREAM_ERRORS';
 export const CLEAR_DREAM_ERRORS= 'CLEAR_DREAM_ERRORS';
 
@@ -12,6 +13,11 @@ export const receiveSingleDream = (dream) => ({
 
 export const receiveAllDream = (dreams) => ({
     type: RECEIVE_ALL_DREAM,
+    dreams
+});
+
+export const receiveDreams = (dreams) => ({
+    type: RECEIVE_DREAMS,
     dreams
 });
 
@@ -35,4 +41,9 @@ export const addNewDream = dream => dispatch => (
 export const fetchAllDream = (id) => dispatch => (
   APIUtil.getDream(id)
   .then(dreams => dispatch(receiveAllDream(dreams)))
+);
+
+export const fetchDreams = (id) => dispatch => (
+  APIUtil.getDream(id)
+  .then(dreams => dispatch(receiveDreams(dreams)))
 );

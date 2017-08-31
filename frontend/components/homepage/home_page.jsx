@@ -1,8 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {selectDreams, selectComments} from '../../reducers/selectors';
-import {fetchAllDream} from '../../actions/route_actions';
+import {selectDreams, selectComments, selectFriends} from '../../reducers/selectors';
+import {fetchAllDream, fetchDreams} from '../../actions/route_actions';
+import {fetchAllFriends} from '../../actions/friend_actions';
 import {postComment, fetchAllComments, removeComment}
   from '../../actions/comment_actions';
 import {fetchUser} from '../../actions/user_actions';
@@ -12,6 +13,7 @@ import DreamItem from '../dreams/dream_item';
 
 const mapStateToProps = (state) => {
   return ({
+  friends: selectFriends(state.friend.friends),
   dreams: selectDreams(state.dream.dream),
   loggedIn: Boolean(state.session.currentUser),
   currentId: state.session.currentUser.username,
@@ -21,7 +23,9 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
+  receiveAllFriends: () => dispatch(fetchAllFriends()),
   receiveAllDream: (id) => dispatch(fetchAllDream(id)),
+  receiveDreams:(id) => dispatch(fetchDreams(id)),
   postComment: (comment) => dispatch(postComment(comment)),
   receiveAllComments: () => dispatch(fetchAllComments()),
   deleteComment: (id) => dispatch(removeComment(id))
@@ -39,15 +43,24 @@ class homePage extends React.Component {
     }
     else {
       this.props.receiveAllDream(this.props.currentId);
+      const receiveDreamsCallback = this.props.receiveDreams;
+      this.props.receiveAllFriends().then((friends) => {
+        const result = selectFriends(friends.friends);
+        result[0].friends.forEach((friend) => {
+            receiveDreamsCallback(friend[1]);
+          });
+      });
+      }
     }
-  }
+
 
   renderDreams() {
+    const dreams = this.props.dreams.sort(function(a,b) { return (b[4] - a[4]);});
     return(
       <div>
 
       <ul className="dreams">
-        {this.props.dreams.map((dream, idx) => (
+        {dreams.map((dream, idx) => (
           <DreamItem currentId={this.props.currentId}
             comments={this.props.comments}
             currentUserId={this.props.currentUserId}
@@ -61,6 +74,8 @@ class homePage extends React.Component {
     );
   }
 
+
+
   render() {
     return (
       <div className='friendsmain'>
@@ -73,6 +88,7 @@ class homePage extends React.Component {
            <TabPanel tabId="one" >
              {this.renderDreams()}
            </TabPanel>
+
         </Tabs>
       </div>
     );
