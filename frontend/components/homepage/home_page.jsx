@@ -80,8 +80,8 @@ class homePage extends React.Component {
     let distance = 0;
     let durationTime = "";
     dreamdata.forEach((dream) => {
-      const checkId = (this.props.match.params.id) ? this.props.match.params.id : this.props.currentUserId;
-      if (dream[0] === checkId) {
+      const checkId = (this.props.match.params.id) ? this.props.match.params.id : this.props.currentId;
+      if (dream[5] === checkId) {
         const now = new Date();
         const end = new Date(dream[2]);
         if ( (now - end)/1000/60/60/24 < 30 ) {
@@ -105,23 +105,23 @@ class homePage extends React.Component {
   renderDashboard() {
     const data = this.calculate(this.props.dreams);
     return (
-      <div>
-        <span>Last Month</span>
-        <div>
-          <div>
+      <div className='dashboard'>
+        <span className='dashboardtitle'>Last Month</span>
+        <div className='dashboardbody'>
+          <div className='dashboarditem'>
             <h4>DISTANCE</h4>
-            <p>{data.distance}</p>
-            <p>miles</p>
+            <p className='number'>{data.distance}</p>
+            <p className='dis'>miles</p>
           </div>
-          <div>
+          <div className='dashboarditem'>
             <h4>DURATION</h4>
-            <p>{data.durationTime/60}</p>
-            <p>hours</p>
+            <p className='number'>{data.durationTime/60}</p>
+            <p className='dis'>hours</p>
           </div>
-          <div>
+          <div className='dashboarditem'>
             <h4>DREAM</h4>
-            <p>{data.times}</p>
-            <p>completed</p>
+            <p className='number'>{data.times}</p>
+            <p className='dis'>completed</p>
           </div>
         </div>
       </div>

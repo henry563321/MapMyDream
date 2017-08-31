@@ -515,15 +515,15 @@ h1 {
 }
 
 .distanceIcon {
-    display: flex;
-    position: relative;
-    align-items: baseline;
-    background-image: image-url('distance.png');
-    background-position:center;
-    background-size:cover;
-    width: 50%;
-    height: 50%;
-    margin-right: 10px;
+  display: flex;
+  position: relative;
+  align-items: baseline;
+  background-image: image-url('distance.png');
+  background-position:center;
+  background-size:cover;
+  width: 50%;
+  height: 50%;
+  margin-right: 10px;
 }
 
 .displaydistance {
@@ -533,10 +533,53 @@ h1 {
 }
 
 .unit {
-    color: #999999;
-    font-family: sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    margin-left: 3px;
-    text-align: center;
+  color: #999999;
+  font-family: sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  margin-left: 3px;
+  text-align: center;
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboardbody {
+  display: flex;
+  flex-direction: row;
+}
+
+.dashboarditem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 22%;
+  border: 1px solid #c3c2c2;
+}
+
+.dashboardtitle {
+  margin: 25px;
+  color: #2f98d9;
+}
+
+h4 {
+  margin: 10px;
+  padding: 10px;
+  font: 12px/16px "Open Sans", sans-serif;
+  color: #999999;
+}
+
+.number {
+  margin: 0;
+  font-size: 28px;
+  color: #434343;
+  font-weight: 300;
+}
+
+.dis {
+  margin: 0;
+  color: #999;
 }
