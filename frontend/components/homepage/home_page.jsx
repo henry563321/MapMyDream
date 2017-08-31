@@ -34,6 +34,7 @@ const mapDispatchToProps = (dispatch) => ({
 class homePage extends React.Component {
   constructor(props) {
     super(props);
+    this.renderDashboard = this.renderDashboard.bind(this);
   }
 
   componentDidMount() {
@@ -74,6 +75,59 @@ class homePage extends React.Component {
     );
   }
 
+  calculate(dreamdata) {
+    let times = 0;
+    let distance = 0;
+    let durationTime = "";
+    dreamdata.forEach((dream) => {
+      const checkId = (this.props.match.params.id) ? this.props.match.params.id : this.props.currentUserId;
+      if (dream[0] === checkId) {
+        const now = new Date();
+        const end = new Date(dream[2]);
+        if ( (now - end)/1000/60/60/24 < 30 ) {
+          const start = new Date(dream[1]);
+          const poly = google.maps.geometry.encoding.decodePath(dream[3]);
+          const length = google.maps.geometry.spherical.computeLength(poly);
+          times += 1;
+          distance += length;
+          durationTime += ( end - start )/1000/60;
+        }
+      }
+    });
+    const data = {
+      times: times,
+      distance: (distance*0.000621).toFixed(2),
+      durationTime: durationTime
+    };
+    return data;
+    }
+
+  renderDashboard() {
+    const data = this.calculate(this.props.dreams);
+    return (
+      <div>
+        <span>Last Month</span>
+        <div>
+          <div>
+            <h4>DISTANCE</h4>
+            <p>{data.distance}</p>
+            <p>miles</p>
+          </div>
+          <div>
+            <h4>DURATION</h4>
+            <p>{data.durationTime/60}</p>
+            <p>hours</p>
+          </div>
+          <div>
+            <h4>DREAM</h4>
+            <p>{data.times}</p>
+            <p>completed</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
 
 
   render() {
@@ -87,6 +141,9 @@ class homePage extends React.Component {
            </TabList>
            <TabPanel tabId="one" >
              {this.renderDreams()}
+           </TabPanel>
+           <TabPanel tabId="two" >
+             {this.renderDashboard()}
            </TabPanel>
 
         </Tabs>
