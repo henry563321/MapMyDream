@@ -92,7 +92,7 @@ class dreamMap extends React.Component {
     path.push(event.latLng);
     var dist = google
       .maps.geometry.spherical.computeLength(this.state.poly.getPath());
-    this.setState({distance: (dist*0.00621).toFixed(2)});
+    this.setState({distance: (dist*0.000621).toFixed(2)});
   }
 
   renderErrors() {
