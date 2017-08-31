@@ -19,11 +19,10 @@ class dreamMap extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      poly: new google.maps.Polyline({
-            strokeColor: '#000000',
-            strokeOpacity: 1.0,
-            strokeWeight: 3
-          }),
+      waypoints: [],
+      poly: "",
+      start: "",
+      end: "",
       start_time: new Date(),
       start_date: new Date(),
       end_time: new Date(),
@@ -33,6 +32,7 @@ class dreamMap extends React.Component {
     this.addLatLng = this.addLatLng.bind(this);
     this.removeLine = this.removeLine.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.calculateAndDisplayRoute = this.calculateAndDisplayRoute.bind(this);
 }
 
   componentDidMount() {
@@ -40,8 +40,9 @@ class dreamMap extends React.Component {
       center: { lat: 40.7128, lng: -74.0059 },
       zoom: 13
     };
+
     this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
-    this.state.poly.setMap(this.map);
+
     this.map.addListener('click', this.addLatLng);
     var input = document.getElementById('pac-input');
     var searchBox = new google.maps.places.SearchBox(input);
@@ -88,11 +89,25 @@ class dreamMap extends React.Component {
   }
 
   addLatLng(event) {
-    var path = this.state.poly.getPath();
-    path.push(event.latLng);
-    var dist = google
-      .maps.geometry.spherical.computeLength(this.state.poly.getPath());
-    this.setState({distance: (dist*0.000621).toFixed(2)});
+    if (this.state.start === "") {
+      this.setState({start: event.latLng});
+    } else if (this.state.end === ""){
+      this.setState({end: event.latLng});
+    }
+    if (this.state.end !== "") {
+      const point = {
+        location: this.state.end,
+        stopover: false
+      };
+      let waypoints = this.state.waypoints;
+      waypoints.push(point);
+      this.setState({waypoints: waypoints});
+      this.setState({end: event.latLng});
+      const directionsService = new google.maps.DirectionsService;
+      const directionsDisplay = new google.maps.DirectionsRenderer({draggable: true});
+      this.calculateAndDisplayRoute(directionsService, directionsDisplay);
+      directionsDisplay.setMap(this.map);
+    }
   }
 
   renderErrors() {
@@ -107,16 +122,32 @@ class dreamMap extends React.Component {
     );
   }
 
+  calculateAndDisplayRoute(directionsService, directionsDisplay) {
+    const start = this.state.start;
+    const end = this.state.end;
+    directionsService.route({
+      origin: start,
+      destination: end,
+      travelMode: 'WALKING',
+      waypoints: this.state.waypoints
+    }, function(response, status) {
+      let poly = "";
+      let distance = 0;
+      if (status === 'OK') {
+        poly = response.routes[0].overview_polyline;
+        this.setState({poly: poly});
+        distance = response.routes[0].legs[0].distance.value*0.000621;
+        this.setState({ distance: distance});
+        directionsDisplay.setDirections(response);
+      } else {
+        window.alert('Directions request failed due to ' + status);
+      }
+
+    }.bind(this));
+}
+
 
   removeLine() {
-    this.state.poly.setMap(null);
-    this.state.poly = new google.maps.Polyline({
-          strokeColor: '#000000',
-          strokeOpacity: 1.0,
-          strokeWeight: 3
-        });
-    this.state.poly.setMap(this.map);
-    this.setState({distance: 0.0});
   }
 
   handleSubmit(e) {
@@ -125,12 +156,10 @@ class dreamMap extends React.Component {
       this.state.start_date + " " + this.state.start_time);
     const endTime = new Date(
       this.state.end_date + " " + this.state.end_time);
-    const encodeString =
-      google.maps.geometry.encoding.encodePath(this.state.poly.getPath());
     const dream = {
       start_time: startTime,
       end_time: endTime,
-      route: encodeString
+      route: this.state.poly
     };
     this.props.addRoute(dream).then(() => this.props.history.push('/home'));
   }
@@ -142,12 +171,12 @@ class dreamMap extends React.Component {
       <div className='Map'>
         <div id='mapform'>
           <input id="pac-input"
-          class="controls" type="text"
+          className="controls" type="text"
           placeholder="Dream Location"/>
           {this.renderErrors()}
           <button className="createbut deletedream"
             onClick={this.removeLine}>Remove Dream</button>
-          <span className='titledistance'>Distance: {this.state.distance}Mile</span>
+          <span className='titledistance'>Distance: {this.state.distance.toFixed(2)}Mile</span>
           <form onSubmit={this.handleSubmit}>
             <h5>StartTime:</h5>
             <h5>Time:</h5>
