@@ -28,3 +28,7 @@ Friend.create!(user_id: users.last.id, apply_user_id: users[4].id, status: "PEND
 Friend.create!(user_id: users[5].id, apply_user_id: users.last.id, status: "PENDING")
 Friend.create!(user_id: users[6].id, apply_user_id: users.last.id, status: "APPROVED")
 Friend.create!(user_id: users[0].id, apply_user_id: users.last.id, status: "DENIED")
+
+Comment.destroy_all
+
+Route.destroy_all

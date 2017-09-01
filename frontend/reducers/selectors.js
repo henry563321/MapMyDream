@@ -2,17 +2,23 @@ import { values } from 'lodash';
 
 export const selectDreams = (data) => {
   if (data) {
+    if(data.index) {
     const ord = Object.keys(data.index);
     const dreams = [];
     ord.forEach((id) => dreams.push(values(data.index[id])));
     return dreams;
+    }
+    else {
+      return [];
+    }
   } else {
     return [];
   }
 };
 
 export const selectUsers = (data, friends, currentUser) => {
-  if (data.index) {
+  if (data) {
+    if(data.index) {
     const users = [];
     const alreadyFriends = [];
     friends.applier.forEach((applier) => alreadyFriends.push(applier.name));
@@ -24,6 +30,9 @@ export const selectUsers = (data, friends, currentUser) => {
       }
     });
     return users;
+  } else {
+    return [];
+  }
   } else {
     return [];
   }

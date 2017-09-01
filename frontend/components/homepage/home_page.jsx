@@ -135,9 +135,9 @@ class homePage extends React.Component {
       <div className='friendsmain'>
         <Tabs >
           <TabList>
-            <Tab tabFor="one"className='tabs'>MY ACTICITIES</Tab>
+            <Tab tabFor="one"className='tabs'>MY ACTIVITIES</Tab>
             <Tab tabFor="two"className='tabs'>MY DASHBOARD</Tab>
-            <Tab tabFor="two"className='tabs'>7/24</Tab>
+            <Tab tabFor="three"className='tabs'>7/24</Tab>
            </TabList>
            <TabPanel tabId="one" >
              {this.renderDreams()}

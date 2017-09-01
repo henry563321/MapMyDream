@@ -152,16 +152,16 @@ ul {
 }
 
 
-
+.Map {
+  display: flex;
+}
 
 #map {
-  float: right;
   width: 75%;
   height: 100%;
 }
 
 #mapform {
-  float: left;
   display: flex
   ;
   flex-direction: column;
