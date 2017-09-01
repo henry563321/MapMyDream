@@ -28,6 +28,7 @@ class dreamMap extends React.Component {
       end_time: new Date(),
       end_date: new Date(),
       distance: 0.0,
+      directionsDisplay: new google.maps.DirectionsRenderer(),
     };
     this.addLatLng = this.addLatLng.bind(this);
     this.removeLine = this.removeLine.bind(this);
@@ -104,9 +105,8 @@ class dreamMap extends React.Component {
       this.setState({waypoints: waypoints});
       this.setState({end: event.latLng});
       const directionsService = new google.maps.DirectionsService;
-      const directionsDisplay = new google.maps.DirectionsRenderer({draggable: true});
-      this.calculateAndDisplayRoute(directionsService, directionsDisplay);
-      directionsDisplay.setMap(this.map);
+      this.calculateAndDisplayRoute(directionsService, this.directionsDisplay);
+      this.state.directionsDisplay.setMap(this.map);
     }
   }
 
@@ -122,7 +122,7 @@ class dreamMap extends React.Component {
     );
   }
 
-  calculateAndDisplayRoute(directionsService, directionsDisplay) {
+  calculateAndDisplayRoute(directionsService) {
     const start = this.state.start;
     const end = this.state.end;
     directionsService.route({
@@ -138,7 +138,7 @@ class dreamMap extends React.Component {
         this.setState({poly: poly});
         distance = response.routes[0].legs[0].distance.value*0.000621;
         this.setState({ distance: distance});
-        directionsDisplay.setDirections(response);
+        this.state.directionsDisplay.setDirections(response);
       } else {
         window.alert('Directions request failed due to ' + status);
       }
@@ -148,6 +148,9 @@ class dreamMap extends React.Component {
 
 
   removeLine() {
+    this.state.directionsDisplay.setMap(null);
+    this.setState({start: "", end : "", distance:0.0, waypoints:[],
+      directionsDisplay: new google.maps.DirectionsRenderer()});
   }
 
   handleSubmit(e) {
