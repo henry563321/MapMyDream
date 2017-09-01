@@ -78,7 +78,8 @@ class homePage extends React.Component {
   calculate(dreamdata) {
     let times = 0;
     let distance = 0;
-    let durationTime = "";
+    let durationTime = 0;
+    let minute = 0;
     dreamdata.forEach((dream) => {
       const checkId = (this.props.match.params.id) ? this.props.match.params.id : this.props.currentId;
       if (dream[5] === checkId) {
@@ -90,14 +91,17 @@ class homePage extends React.Component {
           const length = google.maps.geometry.spherical.computeLength(poly);
           times += 1;
           distance += length;
-          durationTime += ( end - start )/1000/60;
+          durationTime += Math.floor(( end - start )/1000/60);
         }
       }
     });
+    minute = durationTime % 60;
+    durationTime = (durationTime - minute)/60
     const data = {
       times: times,
       distance: (distance*0.000621).toFixed(2),
-      durationTime: durationTime
+      durationTime: durationTime,
+      minute: minute
     };
     return data;
     }
@@ -115,7 +119,7 @@ class homePage extends React.Component {
           </div>
           <div className='dashboarditem'>
             <h4>DURATION</h4>
-            <p className='number'>{data.durationTime/60}</p>
+            <p className='number'>{data.durationTime}:{data.minute}</p>
             <p className='dis'>hours</p>
           </div>
           <div className='dashboarditem'>
