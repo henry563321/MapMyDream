@@ -22,6 +22,7 @@ belongs_to currentUser and his friends, and the comments belongs to these
 dreams.
 
 ![homepage](/productionimages/home_page.png)
+<img src="/productionimages/home_page.png" style=" width:100px ; height:100px " />
 
 ###Friending
 
