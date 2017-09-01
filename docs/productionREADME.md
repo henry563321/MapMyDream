@@ -1,4 +1,4 @@
-#MapMyDream
+# MapMyDream
 
 [MapMyDream Live](https://map-my-dream.herokuapp.com/#/)
 
@@ -7,9 +7,9 @@ Ruby on Rails on the backend, a PostgreSQL database, and React.js with a Redux
 architectural framework on the frontend, and it use goole map API when user
 deal with their dreams.
 
-##Feature and Implement
+## Feature and Implement
 
-###HomePage and Comment
+### HomePage and Comment
 
 Every user has their activities in this page, also, they can see their
 friends activities here, the activities is sorted by the time they update it.
@@ -24,7 +24,7 @@ dreams.
 ![homepage](/productionimages/home_page.png)
 <img src="/productionimages/home_page.png" style=" width:100px ; height:100px " />
 
-###Friending
+### Friending
 
 There are 2 page of friending separated with tabs.
 
@@ -44,19 +44,19 @@ it and resend it.
 ![makefriend](/productionimages/make_friend.png)
 
 
-##Future Direction of Project
+## Future Direction of Project
 
 Besides the feature I have already made, here's some more I want to implement
 in the future.
 
-###Search Dream In Location
+### Search Dream In Location
 
 A great way to find friend with same dream is to search these dream with
 their location, there will be a search box for dream searching,
 and graph of dream, with the list of all dream fit the condition , and the Link
 of add friend ,view profile.
 
-###User Profile
+### User Profile
 
 User should have their own profile , with a image they upload and several
 personal information about themself, people can edit it, and view friends
