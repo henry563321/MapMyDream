@@ -21,8 +21,7 @@ and comments, we sort it in the frontend and use selector to find out which is
 belongs_to currentUser and his friends, and the comments belongs to these
 dreams.
 
-![homepage](/productionimages/home_page.png)
-<img src="/productionimages/home_page.png" style=" width:100px ; height:100px " />
+![homepage](/docs/productionimages/home_page.png)
 
 ### Friending
 
@@ -33,7 +32,7 @@ view their activities and unFriend if you want. And list of friend request,
 which you can accept or deny, the request be accept will add new friend to
 your friend list.
 
-![editfriend](/productionimages/edit_friend.png)
+![editfriend](/docs/productionimages/edit_friend.png)
 
 Second part is the friend searching ,you can search their username to find out
 a friend, only the user not your friend or in your request will show up.
@@ -41,7 +40,7 @@ When you send the request, there will be a pending request you can see the statu
 You can cancel that if you want, or if your request been denied, you can cancel
 it and resend it.
 
-![makefriend](/productionimages/make_friend.png)
+![makefriend](/docs/productionimages/make_friend.png)
 
 
 ## Future Direction of Project
