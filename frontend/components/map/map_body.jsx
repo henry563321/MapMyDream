@@ -60,7 +60,6 @@ class dreamMap extends React.Component {
          var bounds = new google.maps.LatLngBounds();
                places.forEach(function(place) {
                  if (!place.geometry) {
-                   console.log("Returned place contains no geometry");
                    return;
                  }
                  var icon = {

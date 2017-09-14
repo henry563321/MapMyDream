@@ -35,12 +35,21 @@ class NavList extends React.Component {
   }
 
   navLinks() {
-    return(
-      <div className='navlinks'>
-        {this.homelink()}
-        <Link className='createroutelink' to="/dream/create" >CreateDream</Link>
-      </div>
-    );
+    if (this.props.currentUser) {
+      return(
+        <div className='navlinks'>
+          {this.homelink()}
+          <Link className='createroutelink' to="/dream/create" >CreateDream</Link>
+        </div>
+      );
+    }
+    else {
+      return(
+        <div className='navlinks'>
+          {this.homelink()}
+        </div>
+      );
+    }
   }
 
   signlink() {
